@@ -14,3 +14,9 @@ this repo is to facilitate distribution.
 
 The repo is also subject to commit amends, so don't count on the git history
 being sane.
+
+# Current Version
+
+The app uses JointJS (http://www.jointjs.com) to implement basic interactive
+flowchart/UML/ER-style diagrams that can be used to represent historical data
+visually.
