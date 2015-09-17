@@ -1,0 +1,24 @@
+#paper {
+    float: left;
+    height: 600px;
+    margin: 2px;
+    padding: 10px;
+    border: 2px solid #AAA;
+    overflow: hidden;
+}
+
+#paper svg, #menu svg {
+    overflow: visible;
+}
+
+#menu {
+    float: left;
+    height: 600px;
+    margin: 2px;
+    padding: 10px;
+    border: 2px solid #AAA;
+}
+
+#menu > * {
+    display: block;
+}
