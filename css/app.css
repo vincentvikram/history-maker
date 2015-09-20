@@ -1,4 +1,4 @@
-#paper {
+#canvas {
     float: left;
     height: 600px;
     margin: 2px;
@@ -7,8 +7,12 @@
     overflow: hidden;
 }
 
-#paper svg, #menu svg {
+#canvas svg, #menu svg {
     overflow: visible;
+}
+
+#canvas g.linkHandle {
+    cursor: alias;
 }
 
 #menu {
@@ -17,8 +21,4 @@
     margin: 2px;
     padding: 10px;
     border: 2px solid #AAA;
-}
-
-#menu > * {
-    display: block;
 }
