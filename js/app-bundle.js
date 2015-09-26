@@ -48,7 +48,9 @@
 	var MenuGraph = __webpack_require__(2);
 	var MenuPaper = __webpack_require__(3);
 	var linkHandles = __webpack_require__(4);
-	__webpack_require__(5);
+	var SaveButton = __webpack_require__(5);
+	var LoadButton = __webpack_require__(6);
+	__webpack_require__(9);
 
 	$.Drag.prototype.position = _.noop;
 
@@ -78,6 +80,16 @@
 	});
 
 	menuGraph.addItems(['Rectangle', 'Ellipse']);
+
+	var saveButton = new SaveButton({
+	    el: document.getElementById('save-btn'),
+	    model: canvasGraph,
+	});
+
+	var loadButton = new LoadButton({
+	    el: document.getElementById('load-btn'),
+	    model: canvasGraph,
+	});
 
 
 /***/ },
@@ -439,6 +451,163 @@
 
 /***/ },
 /* 5 */
+/***/ function(module, exports) {
+
+	module.exports = Backbone.View.extend({
+	    events: {
+	        'click': 'doSave',
+	    },
+	    getJSONBlob: function() {
+	        var data = this.model.toJSON();
+	        return new Blob(
+	            [JSON.stringify(data)],
+	            {type: 'application/json;charset=utf-8'}
+	        );
+	    },
+	    doSave: function() {
+	        var name = prompt('Enter a file name for this diagram');
+	        saveAs(this.getJSONBlob(), name + '.json');
+	    },
+	});
+
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var JSONFileLoader = __webpack_require__(7);
+	var LoadFileInput = __webpack_require__(8);
+
+	module.exports = Backbone.View.extend({
+	    events: {
+	        'click': 'doLoad',
+	    },
+	    doLoad: function() {
+	        var element = $.parseHTML('<div>');
+
+	        var fileLoader = new JSONFileLoader({
+	            fileType: 'JSON diagram',
+	            validMIMETypes: ['application/json'],
+	        });
+
+	        var fileInput = new LoadFileInput({
+	            el: element,
+	            model: fileLoader
+	        });
+
+	        var self = this;
+
+	        bootbox.dialog({
+	            title: 'Load Diagram',
+	            message: element,
+	            buttons: {
+	                success: {
+	                    label: 'Load',
+	                    className: 'btn-success',
+	                    callback: function() {
+	                        fileLoader.loadFileContents(function(json) {
+	                            self.model.fromJSON(JSON.parse(json));
+	                            fileInput.remove();
+	                        });
+	                    },
+	                },
+	            }
+	        });
+	    },
+	});
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = Backbone.Model.extend({
+	    defaults: {
+	        validMIMETypes: [],
+	        fileType: '',
+	        data: null,
+	        isFileSelected: false,
+	        isFileValid: false,
+	        file: null,
+	    },
+	    initialize: function() {
+	        this.on('selectFile', this.checkSelectedFile);
+	    },
+	    checkSelectedFile: function(file) {
+	        if (file) {
+	            this.set({
+	                isFileSelected: true,
+	                isFileValid: _.contains(this.attributes.validMIMETypes, file.type),
+	                file: file,
+	            });
+	        } else {
+	            this.set({
+	                isFileSelected: false,
+	                isFileValid: false,
+	                file: null,
+	            });
+	        }
+	    },
+	    loadFileContents: function(callback) {
+	        if (this.attributes.isFileValid) {
+	            var reader = new FileReader();
+
+	            reader.onloadend = function(event) {
+	                if (event.target.readyState == FileReader.DONE) {
+	                    callback(event.target.result);
+	                }
+	            };
+
+	            reader.readAsText(this.attributes.file);
+	        }
+	    }
+	});
+
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	module.exports = Backbone.View.extend({
+	    template: _.template($('#template-file-load').html()),
+	    initialize: function() {
+	        this.listenTo(this.model, 'change', this.render);
+	        this.render();
+	    },
+	    events: {
+	        'change input': 'changeInput'
+	    },
+	    changeInput: function(event) {
+	        this.model.trigger('selectFile', event.target.files[0] || null);
+	    },
+	    render: function() {
+	        var lablel = '',
+	            formGroupClass = '',
+	            type = this.model.get('fileType');
+
+	        if (this.model.get('isFileSelected')) {
+	            if (this.model.get('isFileValid')) {
+	                label = 'Ready to load file';
+	                formGroupClass = 'has-success';
+	            } else {
+	                label = 'Invalid file. Please select a valid ' + type + ' file';
+	                formGroupClass = 'has-error';
+	            }
+	        } else {
+	            label = 'Please select a ' + type + ' file';
+	            formGroupClass = 'has-warning';
+	        }
+
+	        this.$el.html(this.template({
+	            label: label,
+	            formGroupClass: formGroupClass,
+	        }));
+	    }
+	});
+
+
+/***/ },
+/* 9 */
 /***/ function(module, exports) {
 
 	function textFieldKeyUpCallback(e) {
