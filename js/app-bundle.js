@@ -51,6 +51,8 @@
 	var SaveButton = __webpack_require__(5);
 	var LoadButton = __webpack_require__(6);
 	var ClearButton = __webpack_require__(9);
+	var Zoom = __webpack_require__(12);
+	var ZoomButton = __webpack_require__(11);
 	__webpack_require__(10);
 
 	$.Drag.prototype.position = _.noop;
@@ -70,6 +72,10 @@
 
 	linkHandles(canvasGraph);
 
+	var zoom = new Zoom({
+	    paper: canvasPaper,
+	});
+
 	var menuGraph = new MenuGraph();
 
 	var menuPaper = new MenuPaper({
@@ -78,6 +84,7 @@
 	    height: 500,
 	    width: 150,
 	    targetPaper: canvasPaper,
+	    zoom: zoom,
 	});
 
 	menuGraph.addItems(['Rectangle', 'Ellipse']);
@@ -95,6 +102,16 @@
 	var clearButton = new ClearButton({
 	    el: document.getElementById('clear-btn'),
 	    model: canvasGraph,
+	});
+
+	var zoomInButton = new ZoomButton({
+	    el: document.getElementById('zoom-in-btn'),
+	    model: zoom,
+	});
+
+	var zoomOutButton = new ZoomButton({
+	    el: document.getElementById('zoom-out-btn'),
+	    model: zoom,
 	});
 
 
@@ -294,7 +311,7 @@
 	    return $svg;
 	}
 
-	function getNewItemPosition(drag, itemSize, paper) {
+	function getNewItemPosition(drag, itemSize, paper, zoom) {
 	    var dragX = drag.location.x(),
 	        dragY = drag.location.y();
 	    var offset = paper.$el.find('svg').offset();
@@ -314,6 +331,10 @@
 	    if (!paperBox.containsPoint(bottomRight)) {
 	        bottomRight.adhereToRect(paperBox);
 	        topLeft = g.point(bottomRight.x - width, bottomRight.y - height);
+	    }
+
+	    if (zoom) {
+	        topLeft = g.point(topLeft.x * zoom, topLeft.y * zoom);
 	    }
 
 	    return topLeft;
@@ -346,7 +367,8 @@
 	        .on('dragend', 'g.element', function(event, drag) {
 	            var item = $(this).data('model');
 	            var paper = self.options.targetPaper;
-	            var position = getNewItemPosition(drag, item.get('size'), paper);
+	            var zoom = 1 / self.options.zoom.get('zoom');
+	            var position = getNewItemPosition(drag, item.get('size'), paper, zoom);
 
 	            var newItem = createNewItem(item.prop('itemType'), paper);
 	            newItem.set('position', position);
@@ -697,6 +719,46 @@
 	            hide: hideCallback,
 	        }
 	    });
+	});
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	module.exports = Backbone.View.extend({
+	    events: {
+	        'click': 'doZoom'
+	    },
+	    doZoom: function() {
+	        var zoom = this.model.get('zoom');
+
+	        if (this.$el.data('zoom') === '+') {
+	            zoom += 0.2;
+	        } else {
+	            zoom -= 0.2;
+	        }
+
+	        this.model.set('zoom', zoom);
+	    },
+	});
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	module.exports = Backbone.Model.extend({
+	    defaults: {
+	        zoom: 1,
+	        paper: null,
+	    },
+	    initialize: function() {
+	        this.on('change', function () {
+	            var zoom = this.attributes.zoom;
+	            this.attributes.paper.scale(zoom, zoom);
+	        });
+	    },
 	});
 
 

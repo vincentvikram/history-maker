@@ -25,7 +25,7 @@ function createSVGProxy(element) {
     return $svg;
 }
 
-function getNewItemPosition(drag, itemSize, paper) {
+function getNewItemPosition(drag, itemSize, paper, zoom) {
     var dragX = drag.location.x(),
         dragY = drag.location.y();
     var offset = paper.$el.find('svg').offset();
@@ -45,6 +45,10 @@ function getNewItemPosition(drag, itemSize, paper) {
     if (!paperBox.containsPoint(bottomRight)) {
         bottomRight.adhereToRect(paperBox);
         topLeft = g.point(bottomRight.x - width, bottomRight.y - height);
+    }
+
+    if (zoom) {
+        topLeft = g.point(topLeft.x * zoom, topLeft.y * zoom);
     }
 
     return topLeft;
@@ -77,7 +81,8 @@ function initializePaper() {
         .on('dragend', 'g.element', function(event, drag) {
             var item = $(this).data('model');
             var paper = self.options.targetPaper;
-            var position = getNewItemPosition(drag, item.get('size'), paper);
+            var zoom = 1 / self.options.zoom.get('zoom');
+            var position = getNewItemPosition(drag, item.get('size'), paper, zoom);
 
             var newItem = createNewItem(item.prop('itemType'), paper);
             newItem.set('position', position);
