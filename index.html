@@ -4,20 +4,53 @@
 <head>
     <meta charset="utf-8">
     <title>History Maker</title>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="./css/joint.css">
     <link rel="stylesheet" type="text/css" href="./css/app.css">
     <link rel="stylesheet" type="text/css" href="./css/jquery.contextMenu.min.css">
 </head>
 
 <body>
-    <div id="canvas"></div>
-    <div id="menu"></div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">History Maker</a>
+            </div>
+
+            <div class="collapse navbar-collapse">
+                <button type="button" class="btn btn-warning navbar-btn"><i class="fa fa-folder-o"></i> Load</button>
+                <button type="button" class="btn btn-warning navbar-btn"><i class="fa fa-floppy-o"></i> Save</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="panel panel-primary pull-left">
+            <div class="panel-heading">
+                <h2 class="panel-title">Canvas</h2>
+            </div>
+            <div class="panel-body">
+                <div id="canvas" class="canvas work-area"></div>
+            </div>
+        </div>
+        <div class="panel panel-primary pull-right">
+            <div class="panel-heading">
+                <h2 class="panel-title">Nodes</h2>
+            </div>
+            <div class="panel-body">
+                <div id="menu" class="canvas"></div>
+            </div>
+        </div>
+    </div>
+
     <script src="./js/jquery.min.js"></script>
     <script src="./js/jquerypp.custom.js"></script>
     <script src="./js/jquery.contextMenu.min.js"></script>
     <script src="./js/lodash.min.js"></script>
     <script src="./js/backbone-min.js"></script>
     <script src="./js/joint.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
     <script src="./js/app-bundle.js"></script>
 </body>
 

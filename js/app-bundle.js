@@ -57,7 +57,7 @@
 	var canvasPaper = new joint.dia.Paper({
 	    el: document.getElementById('canvas'),
 	    width: 800,
-	    height: 600,
+	    height: 500,
 	    gridSize: 1,
 	    model: canvasGraph,
 	    linkPinning: false,
@@ -72,6 +72,8 @@
 	var menuPaper = new MenuPaper({
 	    el: document.getElementById('menu'),
 	    model: menuGraph,
+	    height: 500,
+	    width: 150,
 	    targetPaper: canvasPaper,
 	});
 
@@ -188,6 +190,7 @@
 	                    },
 	                    rect: {
 	                        stroke: '#70A3C4',
+	                        fill: '#70A3C4',
 	                        'stroke-width': 15,
 	                        rx: 0,
 	                        ry: 0,

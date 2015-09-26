@@ -1,24 +1,17 @@
-#canvas {
-    float: left;
-    height: 600px;
-    margin: 2px;
-    padding: 10px;
-    border: 2px solid #AAA;
+.canvas {
     overflow: hidden;
+    border: 1px solid #E7E7E7;
+    padding: 10px;
 }
 
-#canvas svg, #menu svg {
+.canvas svg {
     overflow: visible;
 }
 
-#canvas g.linkHandle {
+.work-area .linkHandle {
     cursor: alias;
 }
 
-#menu {
-    float: left;
-    height: 600px;
-    margin: 2px;
-    padding: 10px;
-    border: 2px solid #AAA;
+.panel {
+    margin: 0 10px;
 }
