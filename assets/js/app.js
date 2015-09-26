@@ -1,10 +1,10 @@
-joint.shapes.history = require('./shapes');
-var MenuGraph = require('./MenuGraph');
-var MenuPaper = require('./MenuPaper');
-var linkHandles = require('./linkHandles');
-var SaveButton = require('./SaveButton');
-var LoadButton = require('./LoadButton');
-require('./contextMenu');
+joint.shapes.history = require('./misc/shapes');
+var MenuGraph = require('./models/MenuGraph');
+var MenuPaper = require('./views/MenuPaper');
+var linkHandles = require('./misc/linkHandles');
+var SaveButton = require('./views/SaveButton');
+var LoadButton = require('./views/LoadButton');
+require('./misc/contextMenu');
 
 $.Drag.prototype.position = _.noop;
 

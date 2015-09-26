@@ -1,4 +1,4 @@
-var JSONFileLoader = require('./JSONFileLoader');
+var JSONFileLoader = require('../models/JSONFileLoader');
 var LoadFileInput = require('./LoadFileInput');
 
 module.exports = Backbone.View.extend({
