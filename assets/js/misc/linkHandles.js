@@ -60,8 +60,10 @@ module.exports = function(graph) {
                     id: targetView.model.id
                 });
 
-                var text = prompt('Text for link') || '';
-                link.setLabelText(text);
+                bootbox.prompt('Text for link', function (result) {
+                    link.setLabelText(result || '');
+                });
+
             } else {
                 link.remove();
             }

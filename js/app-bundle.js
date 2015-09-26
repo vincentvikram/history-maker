@@ -340,13 +340,14 @@
 	    return topLeft;
 	}
 
-	function createNewItem(type, paper) {
-	    var text = prompt('Text for ' + type) || '';
-	    var newItem = new joint.shapes.history[type]();
+	function createNewItem(type, paper, callback) {
+	    bootbox.prompt('Text for ' + type, function (result) {
+	        var text = result || '';
+	        var newItem = new joint.shapes.history[type]();
 
-	    newItem.attr('text/text', text);
-
-	    return newItem;
+	        newItem.attr('text/text', text);
+	        callback(newItem);
+	    });
 	}
 
 	function initializePaper() {
@@ -370,11 +371,13 @@
 	            var zoom = 1 / self.options.zoom.get('zoom');
 	            var position = getNewItemPosition(drag, item.get('size'), paper, zoom);
 
-	            var newItem = createNewItem(item.prop('itemType'), paper);
-	            newItem.set('position', position);
-	            paper.model.addCell(newItem);
+	            createNewItem(item.prop('itemType'), paper, function (newItem) {
 
-	            $(this).data('proxy').remove();
+	                newItem.set('position', position);
+	                paper.model.addCell(newItem);
+
+	                $(this).data('proxy').remove();
+	            }.bind(this));
 	        });
 
 	    this.listenTo(this.model, 'add', function(item) {
@@ -463,8 +466,10 @@
 	                    id: targetView.model.id
 	                });
 
-	                var text = prompt('Text for link') || '';
-	                link.setLabelText(text);
+	                bootbox.prompt('Text for link', function (result) {
+	                    link.setLabelText(result || '');
+	                });
+
 	            } else {
 	                link.remove();
 	            }
@@ -493,8 +498,10 @@
 	        );
 	    },
 	    doSave: function() {
-	        var name = prompt('Enter a file name for this diagram');
-	        saveAs(this.getJSONBlob(), name + '.json');
+	        var box = bootbox.prompt('Enter a file name for this diagram', function(result) {
+	            var name = result || 'History Maker Diagram';
+	            saveAs(this.getJSONBlob(), name + '.json');
+	        }.bind(this));
 	    },
 	});
 
@@ -643,9 +650,11 @@
 	        'click': 'doClear',
 	    },
 	    doClear: function() {
-	        if (confirm('Are you sure you wish to clear the canvas?')) {
-	            this.model.clear();
-	        }
+	        bootbox.confirm('Are you sure you wish to clear the canvas?', function (result) {
+	            if (result) {
+	                this.model.clear();
+	            }
+	        }.bind(this));
 	    },
 	});
 

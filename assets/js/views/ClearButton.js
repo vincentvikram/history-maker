@@ -3,8 +3,10 @@ module.exports = Backbone.View.extend({
         'click': 'doClear',
     },
     doClear: function() {
-        if (confirm('Are you sure you wish to clear the canvas?')) {
-            this.model.clear();
-        }
+        bootbox.confirm('Are you sure you wish to clear the canvas?', function (result) {
+            if (result) {
+                this.model.clear();
+            }
+        }.bind(this));
     },
 });
