@@ -8,6 +8,11 @@
     overflow: visible;
 }
 
+.work-area {
+    background-image: url('../img/grid.png');
+    background-origin: content-box;
+}
+
 .work-area .linkHandle {
     cursor: alias;
 }
