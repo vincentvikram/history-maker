@@ -50,7 +50,8 @@
 	var linkHandles = __webpack_require__(4);
 	var SaveButton = __webpack_require__(5);
 	var LoadButton = __webpack_require__(6);
-	__webpack_require__(9);
+	var ClearButton = __webpack_require__(9);
+	__webpack_require__(10);
 
 	$.Drag.prototype.position = _.noop;
 
@@ -88,6 +89,11 @@
 
 	var loadButton = new LoadButton({
 	    el: document.getElementById('load-btn'),
+	    model: canvasGraph,
+	});
+
+	var clearButton = new ClearButton({
+	    el: document.getElementById('clear-btn'),
 	    model: canvasGraph,
 	});
 
@@ -608,6 +614,22 @@
 
 /***/ },
 /* 9 */
+/***/ function(module, exports) {
+
+	module.exports = Backbone.View.extend({
+	    events: {
+	        'click': 'doClear',
+	    },
+	    doClear: function() {
+	        if (confirm('Are you sure you wish to clear the canvas?')) {
+	            this.model.clear();
+	        }
+	    },
+	});
+
+
+/***/ },
+/* 10 */
 /***/ function(module, exports) {
 
 	function textFieldKeyUpCallback(e) {

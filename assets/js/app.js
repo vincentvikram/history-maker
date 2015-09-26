@@ -4,6 +4,7 @@ var MenuPaper = require('./views/MenuPaper');
 var linkHandles = require('./misc/linkHandles');
 var SaveButton = require('./views/SaveButton');
 var LoadButton = require('./views/LoadButton');
+var ClearButton = require('./views/ClearButton');
 require('./misc/contextMenu');
 
 $.Drag.prototype.position = _.noop;
@@ -42,5 +43,10 @@ var saveButton = new SaveButton({
 
 var loadButton = new LoadButton({
     el: document.getElementById('load-btn'),
+    model: canvasGraph,
+});
+
+var clearButton = new ClearButton({
+    el: document.getElementById('clear-btn'),
     model: canvasGraph,
 });
