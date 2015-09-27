@@ -35,7 +35,7 @@ var menuGraph = new MenuGraph();
 var menuPaper = new MenuPaper({
     el: document.getElementById('menu'),
     model: menuGraph,
-    height: 500,
+    height: 400,
     width: 150,
     targetPaper: canvasPaper,
     zoom: zoom,
