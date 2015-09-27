@@ -11,6 +11,7 @@ module.exports = Backbone.View.extend({
         var fileLoader = new FileLoader({
             fileType: 'JSON diagram',
             validMIMETypes: ['application/json'],
+            validExtensions: ['.dia.json'],
         });
 
         var fileInput = new LoadFileInput({

@@ -1,6 +1,7 @@
 module.exports = Backbone.Model.extend({
     defaults: {
         validMIMETypes: [],
+        validExtensions: [],
         fileType: '',
         data: null,
         isFileSelected: false,
@@ -12,9 +13,17 @@ module.exports = Backbone.Model.extend({
     },
     checkSelectedFile: function(file) {
         if (file) {
+            var validMIMEType = _.contains(this.get('validMIMETypes'), file.type);
+
+            var validExtension = _.some(this.get('validExtensions'), function(ext) {
+                var pos = file.name.lastIndexOf(ext);
+
+                return (pos !== -1) && (pos === file.name.length - ext.length);
+            });
+
             this.set({
                 isFileSelected: true,
-                isFileValid: _.contains(this.attributes.validMIMETypes, file.type),
+                isFileValid: validMIMEType || validExtension,
                 file: file,
             });
         } else {

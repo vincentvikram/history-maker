@@ -510,7 +510,7 @@
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var FileLoader = __webpack_require__(13);
+	var FileLoader = __webpack_require__(7);
 	var LoadFileInput = __webpack_require__(8);
 
 	module.exports = Backbone.View.extend({
@@ -523,6 +523,7 @@
 	        var fileLoader = new FileLoader({
 	            fileType: 'JSON diagram',
 	            validMIMETypes: ['application/json'],
+	            validExtensions: ['.dia.json'],
 	        });
 
 	        var fileInput = new LoadFileInput({
@@ -553,7 +554,62 @@
 
 
 /***/ },
-/* 7 */,
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = Backbone.Model.extend({
+	    defaults: {
+	        validMIMETypes: [],
+	        validExtensions: [],
+	        fileType: '',
+	        data: null,
+	        isFileSelected: false,
+	        isFileValid: false,
+	        file: null,
+	    },
+	    initialize: function() {
+	        this.on('selectFile', this.checkSelectedFile);
+	    },
+	    checkSelectedFile: function(file) {
+	        if (file) {
+	            var validMIMEType = _.contains(this.get('validMIMETypes'), file.type);
+
+	            var validExtension = _.some(this.get('validExtensions'), function(ext) {
+	                var pos = file.name.lastIndexOf(ext);
+
+	                return (pos !== -1) && (pos === file.name.length - ext.length);
+	            });
+
+	            this.set({
+	                isFileSelected: true,
+	                isFileValid: validMIMEType || validExtension,
+	                file: file,
+	            });
+	        } else {
+	            this.set({
+	                isFileSelected: false,
+	                isFileValid: false,
+	                file: null,
+	            });
+	        }
+	    },
+	    loadFileContents: function(callback) {
+	        if (this.attributes.isFileValid) {
+	            var reader = new FileReader();
+
+	            reader.onloadend = function(event) {
+	                if (event.target.readyState == FileReader.DONE) {
+	                    callback(event.target.result);
+	                }
+	            };
+
+	            reader.readAsText(this.attributes.file);
+	        }
+	    }
+	});
+
+
+/***/ },
 /* 8 */
 /***/ function(module, exports) {
 
@@ -572,8 +628,7 @@
 	    render: function() {
 	        var lablel = '',
 	            formGroupClass = '',
-	            type = this.model.get('fileType'),
-	            acceptedTypes = this.model.get('validMIMETypes').join(',');
+	            type = this.model.get('fileType');
 
 	        if (this.model.get('isFileSelected')) {
 	            if (this.model.get('isFileValid')) {
@@ -592,6 +647,10 @@
 	            label: label,
 	            formGroupClass: formGroupClass,
 	        }));
+
+	        var MIMETypes = this.model.get('validMIMETypes');
+	        var extensions = this.model.get('validExtensions');
+	        var acceptedTypes = _.union(MIMETypes, extensions).join(',');
 
 	        this.$el.find('input').attr('accept', acceptedTypes);
 	    }
@@ -725,53 +784,6 @@
 	            hide: hideCallback,
 	        }
 	    });
-	});
-
-
-/***/ },
-/* 13 */
-/***/ function(module, exports) {
-
-	module.exports = Backbone.Model.extend({
-	    defaults: {
-	        validMIMETypes: [],
-	        fileType: '',
-	        data: null,
-	        isFileSelected: false,
-	        isFileValid: false,
-	        file: null,
-	    },
-	    initialize: function() {
-	        this.on('selectFile', this.checkSelectedFile);
-	    },
-	    checkSelectedFile: function(file) {
-	        if (file) {
-	            this.set({
-	                isFileSelected: true,
-	                isFileValid: _.contains(this.attributes.validMIMETypes, file.type),
-	                file: file,
-	            });
-	        } else {
-	            this.set({
-	                isFileSelected: false,
-	                isFileValid: false,
-	                file: null,
-	            });
-	        }
-	    },
-	    loadFileContents: function(callback) {
-	        if (this.attributes.isFileValid) {
-	            var reader = new FileReader();
-
-	            reader.onloadend = function(event) {
-	                if (event.target.readyState == FileReader.DONE) {
-	                    callback(event.target.result);
-	                }
-	            };
-
-	            reader.readAsText(this.attributes.file);
-	        }
-	    }
 	});
 
 
