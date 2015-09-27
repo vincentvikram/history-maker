@@ -5,40 +5,44 @@ main {
   top: 80px;
   width: 100%;
 }
-.work-area-panel {
+.canvas-panel {
   display: flex;
   flex-direction: column;
+  margin: 0 10px;
+}
+.canvas-panel.work-area-panel {
   flex: 1;
 }
-.work-area-panel .panel-body {
+.canvas-panel.menu-panel .panel-body {
+  width: 202px;
+}
+.canvas-panel .panel-body {
   display: flex;
   flex: 1;
   position: relative;
 }
 .canvas {
-  overflow: hidden;
-  border: 1px solid #E7E7E7;
-  padding: 10px;
-}
-.canvas svg {
-  overflow: visible;
-}
-.work-area {
   position: absolute;
   flex: 1;
-  max-height: calc(100% - 30px);
-  max-width: calc(100% - 30px);
-  margin-right: 20px;
-  overflow: scroll;
+  height: calc(100% - 30px);
+  padding: 10px;
+  border: 1px solid #E7E7E7;
+  overflow: auto;
+}
+.canvas.menu {
+  width: 172px;
+}
+.canvas.work-area {
+  width: calc(100% - 30px);
   background-image: url('../img/grid.png');
   background-origin: content-box;
   background-attachment: local;
 }
-.work-area .linkHandle {
+.canvas.work-area .linkHandle {
   cursor: alias;
 }
-.panel {
-  margin: 0 10px;
+.canvas svg {
+  overflow: visible;
 }
 .btn:focus {
   outline: none;

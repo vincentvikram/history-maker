@@ -6,10 +6,18 @@ main {
     width: 100%;
 }
 
-.work-area-panel {
+.canvas-panel {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    margin: 0 10px;
+
+    &.work-area-panel {
+        flex: 1;
+    }
+
+    &.menu-panel .panel-body {
+        width: 202px;
+    }
 
     .panel-body {
         display: flex;
@@ -19,33 +27,31 @@ main {
 }
 
 .canvas {
-    overflow: hidden;
-    border: 1px solid #E7E7E7;
+    position: absolute;
+    flex: 1;
+    height: ~"calc(100% - 30px)";
     padding: 10px;
+    border: 1px solid #E7E7E7;
+    overflow: auto;
+
+    &.menu {
+        width: 172px;
+    }
+
+    &.work-area {
+        width: ~"calc(100% - 30px)";
+        background-image: url('../img/grid.png');
+        background-origin: content-box;
+        background-attachment: local;
+
+        .linkHandle {
+            cursor: alias;
+        }
+    }
 
     svg {
         overflow: visible;
     }
-}
-
-.work-area {
-    position: absolute;
-    flex: 1;
-    max-height: ~"calc(100% - 30px)";
-    max-width: ~"calc(100% - 30px)";
-    margin-right: 20px;
-    overflow: scroll;
-    background-image: url('../img/grid.png');
-    background-origin: content-box;
-    background-attachment: local;
-
-    .linkHandle {
-        cursor: alias;
-    }
-}
-
-.panel {
-    margin: 0 10px;
 }
 
 .btn:focus {
