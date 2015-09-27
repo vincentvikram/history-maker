@@ -45,6 +45,8 @@ module.exports = Backbone.Model.extend({
             };
 
             reader.readAsText(this.attributes.file);
+        } else {
+            bootbox.alert('Unable to load diagram - invalid file');
         }
     }
 });

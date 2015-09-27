@@ -12,7 +12,7 @@ module.exports = Backbone.View.extend({
     doSave: function() {
         var box = bootbox.prompt('Enter a file name for this diagram', function(result) {
             var name = result || 'History Maker Diagram';
-            saveAs(this.getJSONBlob(), name + '.json');
+            saveAs(this.getJSONBlob(), name + '.dia.json');
         }.bind(this));
     },
 });

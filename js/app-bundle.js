@@ -500,7 +500,7 @@
 	    doSave: function() {
 	        var box = bootbox.prompt('Enter a file name for this diagram', function(result) {
 	            var name = result || 'History Maker Diagram';
-	            saveAs(this.getJSONBlob(), name + '.json');
+	            saveAs(this.getJSONBlob(), name + '.dia.json');
 	        }.bind(this));
 	    },
 	});
@@ -522,7 +522,6 @@
 
 	        var fileLoader = new FileLoader({
 	            fileType: 'JSON diagram',
-	            validMIMETypes: ['application/json'],
 	            validExtensions: ['.dia.json'],
 	        });
 
@@ -542,8 +541,13 @@
 	                    className: 'btn-success',
 	                    callback: function() {
 	                        fileLoader.loadFileContents(function(json) {
-	                            self.model.fromJSON(JSON.parse(json));
 	                            fileInput.remove();
+
+	                            try {
+	                                self.model.fromJSON(JSON.parse(json));
+	                            } catch (e) {
+	                                bootbox.alert('Unable to load diagram - invalid file');
+	                            }
 	                        });
 	                    },
 	                },
@@ -604,6 +608,8 @@
 	            };
 
 	            reader.readAsText(this.attributes.file);
+	        } else {
+	            bootbox.alert('Unable to load diagram - invalid file');
 	        }
 	    }
 	});

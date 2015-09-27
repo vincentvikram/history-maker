@@ -10,7 +10,6 @@ module.exports = Backbone.View.extend({
 
         var fileLoader = new FileLoader({
             fileType: 'JSON diagram',
-            validMIMETypes: ['application/json'],
             validExtensions: ['.dia.json'],
         });
 
@@ -30,8 +29,13 @@ module.exports = Backbone.View.extend({
                     className: 'btn-success',
                     callback: function() {
                         fileLoader.loadFileContents(function(json) {
-                            self.model.fromJSON(JSON.parse(json));
                             fileInput.remove();
+
+                            try {
+                                self.model.fromJSON(JSON.parse(json));
+                            } catch (e) {
+                                bootbox.alert('Unable to load diagram - invalid file');
+                            }
                         });
                     },
                 },
