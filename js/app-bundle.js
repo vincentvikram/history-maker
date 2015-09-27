@@ -51,9 +51,9 @@
 	var SaveButton = __webpack_require__(5);
 	var LoadButton = __webpack_require__(6);
 	var ClearButton = __webpack_require__(9);
-	var Zoom = __webpack_require__(12);
+	var Zoom = __webpack_require__(10);
 	var ZoomButton = __webpack_require__(11);
-	__webpack_require__(10);
+	__webpack_require__(12);
 
 	$.Drag.prototype.position = _.noop;
 
@@ -61,8 +61,8 @@
 
 	var canvasPaper = new joint.dia.Paper({
 	    el: document.getElementById('canvas'),
-	    width: 800,
-	    height: 500,
+	    width: 2000,
+	    height: 1000,
 	    gridSize: 1,
 	    model: canvasGraph,
 	    linkPinning: false,
@@ -663,6 +663,46 @@
 /* 10 */
 /***/ function(module, exports) {
 
+	module.exports = Backbone.Model.extend({
+	    defaults: {
+	        zoom: 1,
+	        paper: null,
+	    },
+	    initialize: function() {
+	        this.on('change', function () {
+	            var zoom = this.attributes.zoom;
+	            this.attributes.paper.scale(zoom, zoom);
+	        });
+	    },
+	});
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	module.exports = Backbone.View.extend({
+	    events: {
+	        'click': 'doZoom'
+	    },
+	    doZoom: function() {
+	        var zoom = this.model.get('zoom');
+
+	        if (this.$el.data('zoom') === '+') {
+	            zoom += 0.2;
+	        } else {
+	            zoom -= 0.2;
+	        }
+
+	        this.model.set('zoom', zoom);
+	    },
+	});
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
 	function textFieldKeyUpCallback(e) {
 	    if (e.keyCode == 13) {
 	        $(this).parents('.context-menu-root').data('contextMenu')
@@ -728,46 +768,6 @@
 	            hide: hideCallback,
 	        }
 	    });
-	});
-
-
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
-
-	module.exports = Backbone.View.extend({
-	    events: {
-	        'click': 'doZoom'
-	    },
-	    doZoom: function() {
-	        var zoom = this.model.get('zoom');
-
-	        if (this.$el.data('zoom') === '+') {
-	            zoom += 0.2;
-	        } else {
-	            zoom -= 0.2;
-	        }
-
-	        this.model.set('zoom', zoom);
-	    },
-	});
-
-
-/***/ },
-/* 12 */
-/***/ function(module, exports) {
-
-	module.exports = Backbone.Model.extend({
-	    defaults: {
-	        zoom: 1,
-	        paper: null,
-	    },
-	    initialize: function() {
-	        this.on('change', function () {
-	            var zoom = this.attributes.zoom;
-	            this.attributes.paper.scale(zoom, zoom);
-	        });
-	    },
 	});
 
 

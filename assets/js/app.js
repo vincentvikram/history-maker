@@ -15,8 +15,8 @@ var canvasGraph = new joint.dia.Graph();
 
 var canvasPaper = new joint.dia.Paper({
     el: document.getElementById('canvas'),
-    width: 800,
-    height: 500,
+    width: 2000,
+    height: 1000,
     gridSize: 1,
     model: canvasGraph,
     linkPinning: false,
