@@ -1,53 +1,45 @@
 main {
-    display: flex;
-    position: fixed;
-    bottom: 10px;
-    top: 80px;
-    width: 100%;
+  display: flex;
+  position: fixed;
+  bottom: 10px;
+  top: 80px;
+  width: 100%;
 }
-
 .work-area-panel {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
-
 .work-area-panel .panel-body {
-    display: flex;
-    flex: 1;
-    position: relative;
+  display: flex;
+  flex: 1;
+  position: relative;
 }
-
 .canvas {
-    overflow: hidden;
-    border: 1px solid #E7E7E7;
-    padding: 10px;
+  overflow: hidden;
+  border: 1px solid #E7E7E7;
+  padding: 10px;
 }
-
 .canvas svg {
-    overflow: visible;
+  overflow: visible;
 }
-
 .work-area {
-    position: absolute;
-    flex: 1;
-    max-height: calc(100% - 30px);
-    max-width: calc(100% - 30px);
-    margin-right: 20px;
-    overflow: scroll;
-    background-image: url('../img/grid.png');
-    background-origin: content-box;
-    background-attachment: local;
+  position: absolute;
+  flex: 1;
+  max-height: calc(100% - 30px);
+  max-width: calc(100% - 30px);
+  margin-right: 20px;
+  overflow: scroll;
+  background-image: url('../img/grid.png');
+  background-origin: content-box;
+  background-attachment: local;
 }
-
 .work-area .linkHandle {
-    cursor: alias;
+  cursor: alias;
 }
-
 .panel {
-    margin: 0 10px;
+  margin: 0 10px;
 }
-
 .btn:focus {
-    outline: none;
+  outline: none;
 }
