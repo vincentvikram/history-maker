@@ -23,6 +23,7 @@ module.exports = Backbone.View.extend({
         var box = bootbox.dialog({
             title: 'Load Diagram',
             message: element,
+            onEscape: true,
             buttons: {
                 success: {
                     label: 'Load',
