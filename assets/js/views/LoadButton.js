@@ -1,4 +1,4 @@
-var JSONFileLoader = require('../models/JSONFileLoader');
+var FileLoader = require('../models/FileLoader');
 var LoadFileInput = require('./LoadFileInput');
 
 module.exports = Backbone.View.extend({
@@ -8,7 +8,7 @@ module.exports = Backbone.View.extend({
     doLoad: function() {
         var element = $.parseHTML('<div>');
 
-        var fileLoader = new JSONFileLoader({
+        var fileLoader = new FileLoader({
             fileType: 'JSON diagram',
             validMIMETypes: ['application/json'],
         });
