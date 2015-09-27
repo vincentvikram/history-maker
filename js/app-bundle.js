@@ -532,7 +532,7 @@
 
 	        var self = this;
 
-	        bootbox.dialog({
+	        var box = bootbox.dialog({
 	            title: 'Load Diagram',
 	            message: element,
 	            buttons: {
@@ -553,6 +553,18 @@
 	                },
 	            }
 	        });
+
+	        var submitOnEnterKeyPress = function(event) {
+	            if (event.which == 13) {
+	                $('.btn-success', box).trigger('click');
+	            }
+	        };
+
+	        box.on('hidden.bs.modal', function () {
+	            $(document).off('keypress', submitOnEnterKeyPress);
+	        });
+
+	        $(document).on('keypress', submitOnEnterKeyPress);
 	    },
 	});
 
