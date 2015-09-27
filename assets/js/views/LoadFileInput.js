@@ -13,7 +13,8 @@ module.exports = Backbone.View.extend({
     render: function() {
         var lablel = '',
             formGroupClass = '',
-            type = this.model.get('fileType');
+            type = this.model.get('fileType'),
+            acceptedTypes = this.model.get('validMIMETypes').join(',');
 
         if (this.model.get('isFileSelected')) {
             if (this.model.get('isFileValid')) {
@@ -32,5 +33,7 @@ module.exports = Backbone.View.extend({
             label: label,
             formGroupClass: formGroupClass,
         }));
+
+        this.$el.find('input').attr('accept', acceptedTypes);
     }
 });
