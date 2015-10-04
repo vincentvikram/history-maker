@@ -4,6 +4,7 @@ joint.shapes.history.GenericShape = require('./shapes/GenericShape');
 joint.shapes.history.GenericLink = require('./shapes/GenericLink');
 
 joint.shapes.history.nodes.Community = require('./shapes/nodes/Community');
+joint.shapes.history.nodes.Profession = require('./shapes/nodes/Profession');
 
 joint.shapes.history.links.UndirectedLink = require('./shapes/links/UndirectedLink');
 joint.shapes.history.links.UnidirectionalLink = require('./shapes/links/UnidirectionalLink');
