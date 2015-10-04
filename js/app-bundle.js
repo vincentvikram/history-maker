@@ -49,21 +49,19 @@
 	joint.shapes.history.GenericShape = __webpack_require__(1);
 	joint.shapes.history.GenericLink = __webpack_require__(2);
 
-	joint.shapes.history.nodes.Rectangle = __webpack_require__(3);
-	joint.shapes.history.nodes.Ellipse = __webpack_require__(4);
-	joint.shapes.history.links.UndirectedLink = __webpack_require__(5);
-	joint.shapes.history.links.UnidirectionalLink = __webpack_require__(6);
-	joint.shapes.history.links.BidirectionalLink = __webpack_require__(7);
+	joint.shapes.history.links.UndirectedLink = __webpack_require__(3);
+	joint.shapes.history.links.UnidirectionalLink = __webpack_require__(4);
+	joint.shapes.history.links.BidirectionalLink = __webpack_require__(5);
 
-	var MenuGraph = __webpack_require__(8);
-	var MenuPaper = __webpack_require__(9);
-	var linkHandles = __webpack_require__(10);
-	var SaveButton = __webpack_require__(11);
-	var LoadButton = __webpack_require__(12);
-	var ClearButton = __webpack_require__(15);
-	var Zoom = __webpack_require__(16);
-	var ZoomButton = __webpack_require__(17);
-	__webpack_require__(18);
+	var MenuGraph = __webpack_require__(6);
+	var MenuPaper = __webpack_require__(7);
+	var linkHandles = __webpack_require__(8);
+	var SaveButton = __webpack_require__(9);
+	var LoadButton = __webpack_require__(10);
+	var ClearButton = __webpack_require__(13);
+	var Zoom = __webpack_require__(14);
+	var ZoomButton = __webpack_require__(15);
+	__webpack_require__(16);
 
 	$.Drag.prototype.position = _.noop;
 
@@ -97,7 +95,7 @@
 	    zoom: zoom,
 	});
 
-	menuGraph.addItems(['Rectangle', 'Ellipse']);
+	menuGraph.addItems(joint.shapes.history.nodes);
 
 	var saveButton = new SaveButton({
 	    el: document.getElementById('save-btn'),
@@ -137,13 +135,6 @@
 	            width: 150,
 	        },
 	        attrs: {
-	            '.outer': {
-	                'stroke-width': 2,
-	            },
-	            '.inner': {
-	                'stroke-width': 2,
-	                display: 'none',
-	            },
 	            text: {
 	                'font-family': 'Arial',
 	                'font-size': 14,
@@ -164,6 +155,7 @@
 	            },
 	            '.linkHandle polyline': {
 	                stroke: '#ffffff',
+	                points: '0,0 5,5 0,10',
 	                ref: '.linkHandle circle',
 	                'ref-x': 0.5,
 	                'ref-y': 0.5,
@@ -209,65 +201,6 @@
 /* 3 */
 /***/ function(module, exports) {
 
-	module.exports = joint.shapes.history.GenericShape.extend({
-	    markup: '<g class="rotatable"><g class="scalable"><polygon class="outer"/><polygon class="inner"/></g><text/></g><g class="linkHandle"><circle/><polyline points="0,0 5,5 0,10"/></g>',
-	    defaults: joint.util.deepSupplement({
-	        type: 'history.nodes.Rectangle',
-	        attrs: {
-	            '.outer': {
-	                fill: '#2ECC71',
-	                stroke: '#27AE60',
-	                points: '100,0 100,60 0,60 0,0',
-	            },
-	            '.inner': {
-	                fill: '#2ECC71',
-	                stroke: '#27AE60',
-	                points: '95,5 95,55 5,55 5,5',
-	            },
-	            text: {
-	                text: 'Rectangle',
-	            },
-	        },
-	    }, joint.shapes.history.GenericShape.prototype.defaults)
-	});
-
-
-/***/ },
-/* 4 */
-/***/ function(module, exports) {
-
-	module.exports = joint.shapes.history.GenericShape.extend({
-	    markup: '<g class="rotatable"><g class="scalable"><ellipse class="outer"/><ellipse class="inner"/></g><text/></g><g class="linkHandle"><circle/><polyline points="0,0 5,5 0,10"/></g>',
-	    defaults: joint.util.deepSupplement({
-	        type: 'history.nodes.Ellipse',
-	        attrs: {
-	            ellipse: {
-	                'transform': 'translate(50, 25)'
-	            },
-	            '.outer': {
-	                'stroke': '#D35400',
-	                'rx': 50,
-	                'ry': 25,
-	                'fill': '#E67E22'
-	            },
-	            '.inner': {
-	                'stroke': '#D35400',
-	                'rx': 45,
-	                'ry': 20,
-	                'fill': '#E67E22',
-	            },
-	            text: {
-	                text: 'Rectangle',
-	            },
-	        },
-	    }, joint.shapes.history.GenericShape.prototype.defaults),
-	});
-
-
-/***/ },
-/* 5 */
-/***/ function(module, exports) {
-
 	module.exports = joint.shapes.history.GenericLink.extend({
 	    defaults: joint.util.deepSupplement({
 	        type: 'history.links.UndirectedLink',
@@ -276,7 +209,7 @@
 
 
 /***/ },
-/* 6 */
+/* 4 */
 /***/ function(module, exports) {
 
 	module.exports = joint.shapes.history.GenericLink.extend({
@@ -291,7 +224,7 @@
 
 
 /***/ },
-/* 7 */
+/* 5 */
 /***/ function(module, exports) {
 
 	module.exports = joint.shapes.history.GenericLink.extend({
@@ -306,27 +239,34 @@
 
 
 /***/ },
-/* 8 */
+/* 6 */
 /***/ function(module, exports) {
 
 	function getItemPosition(item, prevItem) {
-	    var y = 0;
+	    var x = 0, y = 0;
 
 	    if (prevItem) {
 	        y += prevItem.prop('position/y') + prevItem.prop('size/height');
 	        y += 20;
 	    }
 
-	    return g.point(0, y);
+	    var width = item.prop('size/width');
+
+	    if (width <= 150) {
+	        x = (150 - width) / 2;
+	    }
+
+	    return g.point(x, y);
 	}
 
-	module.exports = joint.dia.Graph.extend({
-	    addItems: function(menu) {
-	        var prevItem = null;
+	var prevItem = null;
 
-	        _.each(menu, function(type) {
-	            var item = new joint.shapes.history.nodes[type]()
-	                .set('position', getItemPosition(item, prevItem))
+	module.exports = joint.dia.Graph.extend({
+	    addItems: function(nodes) {
+	        _.each(nodes, function(node, type) {
+	            var item = new node();
+
+	            item.set('position', getItemPosition(item, prevItem))
 	                .attr('text/text', type)
 	                .prop('itemType', type);
 
@@ -339,7 +279,7 @@
 
 
 /***/ },
-/* 9 */
+/* 7 */
 /***/ function(module, exports) {
 
 	function moveSVGElementsToOrigin($svg) {
@@ -459,7 +399,7 @@
 
 
 /***/ },
-/* 10 */
+/* 8 */
 /***/ function(module, exports) {
 
 	var dialogTemplate = _.template($('#template-link-dialog').html());
@@ -610,7 +550,7 @@
 
 
 /***/ },
-/* 11 */
+/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -634,11 +574,11 @@
 
 
 /***/ },
-/* 12 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var FileLoader = __webpack_require__(13);
-	var LoadFileInput = __webpack_require__(14);
+	var FileLoader = __webpack_require__(11);
+	var LoadFileInput = __webpack_require__(12);
 
 	module.exports = Backbone.View.extend({
 	    events: {
@@ -698,7 +638,7 @@
 
 
 /***/ },
-/* 13 */
+/* 11 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.Model.extend({
@@ -756,7 +696,7 @@
 
 
 /***/ },
-/* 14 */
+/* 12 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -804,7 +744,7 @@
 
 
 /***/ },
-/* 15 */
+/* 13 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -822,7 +762,7 @@
 
 
 /***/ },
-/* 16 */
+/* 14 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.Model.extend({
@@ -840,7 +780,7 @@
 
 
 /***/ },
-/* 17 */
+/* 15 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -862,7 +802,7 @@
 
 
 /***/ },
-/* 18 */
+/* 16 */
 /***/ function(module, exports) {
 
 	function textFieldKeyUpCallback(e) {

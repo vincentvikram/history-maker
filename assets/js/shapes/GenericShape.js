@@ -6,13 +6,6 @@ module.exports = joint.dia.Element.extend({
             width: 150,
         },
         attrs: {
-            '.outer': {
-                'stroke-width': 2,
-            },
-            '.inner': {
-                'stroke-width': 2,
-                display: 'none',
-            },
             text: {
                 'font-family': 'Arial',
                 'font-size': 14,
@@ -33,6 +26,7 @@ module.exports = joint.dia.Element.extend({
             },
             '.linkHandle polyline': {
                 stroke: '#ffffff',
+                points: '0,0 5,5 0,10',
                 ref: '.linkHandle circle',
                 'ref-x': 0.5,
                 'ref-y': 0.5,
