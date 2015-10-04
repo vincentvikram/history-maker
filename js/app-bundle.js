@@ -44,16 +44,26 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	joint.shapes.history = __webpack_require__(1);
-	var MenuGraph = __webpack_require__(2);
-	var MenuPaper = __webpack_require__(3);
-	var linkHandles = __webpack_require__(4);
-	var SaveButton = __webpack_require__(5);
-	var LoadButton = __webpack_require__(6);
-	var ClearButton = __webpack_require__(9);
-	var Zoom = __webpack_require__(10);
-	var ZoomButton = __webpack_require__(11);
-	__webpack_require__(12);
+	joint.shapes.history = {nodes: {}, links: {}};
+
+	joint.shapes.history.GenericShape = __webpack_require__(1);
+	joint.shapes.history.GenericLink = __webpack_require__(2);
+
+	joint.shapes.history.nodes.Rectangle = __webpack_require__(3);
+	joint.shapes.history.nodes.Ellipse = __webpack_require__(4);
+	joint.shapes.history.links.UndirectedLink = __webpack_require__(5);
+	joint.shapes.history.links.UnidirectionalLink = __webpack_require__(6);
+	joint.shapes.history.links.BidirectionalLink = __webpack_require__(7);
+
+	var MenuGraph = __webpack_require__(8);
+	var MenuPaper = __webpack_require__(9);
+	var linkHandles = __webpack_require__(10);
+	var SaveButton = __webpack_require__(11);
+	var LoadButton = __webpack_require__(12);
+	var ClearButton = __webpack_require__(15);
+	var Zoom = __webpack_require__(16);
+	var ZoomButton = __webpack_require__(17);
+	__webpack_require__(18);
 
 	$.Drag.prototype.position = _.noop;
 
@@ -119,7 +129,7 @@
 /* 1 */
 /***/ function(module, exports) {
 
-	var GenericShape = joint.dia.Element.extend({
+	module.exports = joint.dia.Element.extend({
 	    defaults: {
 	        type: 'history.Generic',
 	        size: {
@@ -164,94 +174,139 @@
 	    },
 	});
 
-	module.exports = {
-	    Rectangle: GenericShape.extend({
-	        markup: '<g class="rotatable"><g class="scalable"><polygon class="outer"/><polygon class="inner"/></g><text/></g><g class="linkHandle"><circle/><polyline points="0,0 5,5 0,10"/></g>',
-	        defaults: joint.util.deepSupplement({
-	            type: 'history.Rectangle',
-	            attrs: {
-	                '.outer': {
-	                    fill: '#2ECC71',
-	                    stroke: '#27AE60',
-	                    points: '100,0 100,60 0,60 0,0',
-	                },
-	                '.inner': {
-	                    fill: '#2ECC71',
-	                    stroke: '#27AE60',
-	                    points: '95,5 95,55 5,55 5,5',
-	                },
-	                text: {
-	                    text: 'Rectangle',
-	                },
-	            },
-	        }, GenericShape.prototype.defaults)
-	    }),
-	    Ellipse: GenericShape.extend({
-	        markup: '<g class="rotatable"><g class="scalable"><ellipse class="outer"/><ellipse class="inner"/></g><text/></g><g class="linkHandle"><circle/><polyline points="0,0 5,5 0,10"/></g>',
-	        defaults: joint.util.deepSupplement({
-	            type: 'history.Ellipse',
-	            attrs: {
-	                ellipse: {
-	                    'transform': 'translate(50, 25)'
-	                },
-	                '.outer': {
-	                    'stroke': '#D35400',
-	                    'rx': 50,
-	                    'ry': 25,
-	                    'fill': '#E67E22'
-	                },
-	                '.inner': {
-	                    'stroke': '#D35400',
-	                    'rx': 45,
-	                    'ry': 20,
-	                    'fill': '#E67E22',
-	                },
-	                text: {
-	                    text: 'Rectangle',
-	                },
-	            },
-	        }, GenericShape.prototype.defaults),
-	    }),
-	    Link: joint.shapes.erd.Line.extend({
-	        defaults: joint.util.deepSupplement({
-	            type: 'history.Link',
-	            router: {
-	                name: 'metro',
-	            },
-	            labels: [{
-	                position: 0.5,
-	                attrs: {
-	                    text: {
-	                        dy: -8,
-	                        text: 'Link',
-	                        fill: '#000000',
-	                    },
-	                    rect: {
-	                        stroke: '#70A3C4',
-	                        fill: '#70A3C4',
-	                        'stroke-width': 15,
-	                        rx: 0,
-	                        ry: 0,
-	                    },
-	                },
-	            }]
-	        }, joint.shapes.erd.Line.prototype.defaults),
-	        setLabelText: function(text) {
-	            this.label(0, {
-	                attrs: {
-	                    text: {
-	                        text: text,
-	                    },
-	                },
-	            });
-	            return this;
-	        }
-	    })
-	};
-
 
 /***/ },
 /* 2 */
+/***/ function(module, exports) {
+
+	module.exports = joint.dia.Link.extend({
+	    defaults: {
+	        type: 'history.GenericLink',
+	        router: { name: 'metro' },
+	        labels: [{
+	            position: 0.5,
+	            attrs: {
+	                text: { dy: -8, text: 'Link', fill: '#000000' },
+	                rect: {
+	                    stroke: '#70A3C4',
+	                    fill: '#70A3C4',
+	                    'stroke-width': 15,
+	                    rx: 0,
+	                    ry: 0,
+	                },
+	            },
+	        }],
+	    },
+	    setLabelText: function(text) {
+	        this.label(0, {attrs: {text: {text: text}}});
+
+	        return this;
+	    }
+	});
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	module.exports = joint.shapes.history.GenericShape.extend({
+	    markup: '<g class="rotatable"><g class="scalable"><polygon class="outer"/><polygon class="inner"/></g><text/></g><g class="linkHandle"><circle/><polyline points="0,0 5,5 0,10"/></g>',
+	    defaults: joint.util.deepSupplement({
+	        type: 'history.nodes.Rectangle',
+	        attrs: {
+	            '.outer': {
+	                fill: '#2ECC71',
+	                stroke: '#27AE60',
+	                points: '100,0 100,60 0,60 0,0',
+	            },
+	            '.inner': {
+	                fill: '#2ECC71',
+	                stroke: '#27AE60',
+	                points: '95,5 95,55 5,55 5,5',
+	            },
+	            text: {
+	                text: 'Rectangle',
+	            },
+	        },
+	    }, joint.shapes.history.GenericShape.prototype.defaults)
+	});
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	module.exports = joint.shapes.history.GenericShape.extend({
+	    markup: '<g class="rotatable"><g class="scalable"><ellipse class="outer"/><ellipse class="inner"/></g><text/></g><g class="linkHandle"><circle/><polyline points="0,0 5,5 0,10"/></g>',
+	    defaults: joint.util.deepSupplement({
+	        type: 'history.nodes.Ellipse',
+	        attrs: {
+	            ellipse: {
+	                'transform': 'translate(50, 25)'
+	            },
+	            '.outer': {
+	                'stroke': '#D35400',
+	                'rx': 50,
+	                'ry': 25,
+	                'fill': '#E67E22'
+	            },
+	            '.inner': {
+	                'stroke': '#D35400',
+	                'rx': 45,
+	                'ry': 20,
+	                'fill': '#E67E22',
+	            },
+	            text: {
+	                text: 'Rectangle',
+	            },
+	        },
+	    }, joint.shapes.history.GenericShape.prototype.defaults),
+	});
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	module.exports = joint.shapes.history.GenericLink.extend({
+	    defaults: joint.util.deepSupplement({
+	        type: 'history.links.UndirectedLink',
+	    }, joint.shapes.history.GenericLink.prototype.defaults),
+	});
+
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	module.exports = joint.shapes.history.GenericLink.extend({
+	    defaults: joint.util.deepSupplement({
+	        type: 'history.links.UnidirectionalLink',
+	        attrs: {
+	            '.marker-source': { fill: '#4b4a67', stroke: '#4b4a67', d: 'M 0 0 L 0 10 L 5 10 L 5 0 z'},
+	            '.marker-target': { fill: '#4b4a67', stroke: '#4b4a67', d: 'M 10 0 L 0 5 L 10 10 z' },
+	        },
+	    }, joint.shapes.history.GenericLink.prototype.defaults),
+	});
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = joint.shapes.history.GenericLink.extend({
+	    defaults: joint.util.deepSupplement({
+	        type: 'history.links.BidirectionalLink',
+	        attrs: {
+	            '.marker-source': { fill: '#4b4a67', stroke: '#4b4a67', d: 'M 10 0 L 0 5 L 10 10 z'},
+	            '.marker-target': { fill: '#4b4a67', stroke: '#4b4a67', d: 'M 10 0 L 0 5 L 10 10 z' },
+	        },
+	    }, joint.shapes.history.GenericLink.prototype.defaults),
+	});
+
+
+/***/ },
+/* 8 */
 /***/ function(module, exports) {
 
 	function getItemPosition(item, prevItem) {
@@ -270,7 +325,7 @@
 	        var prevItem = null;
 
 	        _.each(menu, function(type) {
-	            var item = new joint.shapes.history[type]()
+	            var item = new joint.shapes.history.nodes[type]()
 	                .set('position', getItemPosition(item, prevItem))
 	                .attr('text/text', type)
 	                .prop('itemType', type);
@@ -284,7 +339,7 @@
 
 
 /***/ },
-/* 3 */
+/* 9 */
 /***/ function(module, exports) {
 
 	function moveSVGElementsToOrigin($svg) {
@@ -346,7 +401,7 @@
 	function createNewItem(type, paper, callback) {
 	    bootbox.prompt('Text for ' + type, function (result) {
 	        var text = result || '';
-	        var newItem = new joint.shapes.history[type]();
+	        var newItem = new joint.shapes.history.nodes[type]();
 
 	        newItem.attr('text/text', text);
 	        callback(newItem);
@@ -404,8 +459,65 @@
 
 
 /***/ },
-/* 4 */
+/* 10 */
 /***/ function(module, exports) {
+
+	var dialogTemplate = _.template($('#template-link-dialog').html());
+	function getLinkAttributes(callback) {
+	    var linkTypes = {};
+
+	    _.each(joint.shapes.history.links, function (type, key) {
+	        linkTypes[key] = key.replace(/([A-Z])/g, ' $1');
+	    });
+
+	    var options = {
+	        linkTypes: {
+	            'UndirectedLink': 'Ordinary Relationship',
+	            'UnidirectionalLink': 'Cause and Effect',
+	            'BidirectionalLink': 'Parent-Child',
+	        },
+	        lineStyles: { 'solid': 'Solid Line', 'dotted': 'Dotted Line' },
+	    };
+
+	    var box = bootbox.dialog({
+	        title: 'Add Link',
+	        message: dialogTemplate(options),
+	        onescape: true,
+	        buttons: {
+	            success: {
+	                label: 'Add Link',
+	                classname: 'btn-success',
+	                callback: function() {
+	                    var $form = $(this).find('form');
+
+	                    var result = {
+	                        text: $form.find('[name=text]').val(),
+	                        linkType: $form.find('[name=link-type] option:selected').val(),
+	                        lineStyle: $form.find('[name=line-style] option:selected').val(),
+	                    };
+
+	                    callback(result);
+	                },
+	            },
+	        }
+	    });
+
+	    var submitOnEnterKeyPress = function(event) {
+	        if (event.which == 13) {
+	            $('.btn-success', box).trigger('click');
+	        }
+	    };
+
+	    box.on('hidden.bs.modal', function () {
+	        $(document).off('keypress', submitOnEnterKeyPress);
+	    });
+
+	    $(document).on('keypress', submitOnEnterKeyPress);
+
+	    box.find('form').on('submit', function(event) {
+	        event.preventDefault();
+	    });
+	}
 
 	module.exports = function(graph) {
 	    $(document).on('ready', function() {
@@ -413,7 +525,7 @@
 	            var view = $(this).parents('g.element').data('view');
 	            var model = view.model;
 
-	            var link = new joint.shapes.history.Link({
+	            var link = new joint.shapes.history.GenericLink({
 	                source: {
 	                    id: model.id
 	                },
@@ -425,6 +537,7 @@
 
 	            link.addTo(graph);
 	            $(this).data('view', view);
+	            $(this).data('sourceView', view);
 	            $(this).data('link', link);
 	            $(this).data('offset', view.paper.$el.find('svg').offset());
 	            $(this).data('paper', view.paper);
@@ -465,14 +578,25 @@
 
 	            if (targetView) {
 	                targetView.unhighlight();
-	                link.set('target', {
-	                    id: targetView.model.id
-	                });
 
-	                bootbox.prompt('Text for link', function (result) {
-	                    link.setLabelText(result || '');
-	                });
+	                link.set('target', { id: targetView.model.id });
 
+	                getLinkAttributes(function (result) {
+	                    var newLink = new joint.shapes.history.links[result.linkType]({
+	                        source: { id: $(this).data('sourceView').model.id },
+	                        target: { id: targetView.model.id },
+	                    });
+
+	                    newLink.setLabelText(result.text);
+	                    newLink.prop('lineStyle', result.lineStyle);
+
+	                    if (result.lineStyle === 'dotted') {
+	                        newLink.attr('.connection/stroke-dasharray', '2 5');
+	                    }
+
+	                    newLink.addTo(graph);
+	                    link.remove();
+	                }.bind(this));
 	            } else {
 	                link.remove();
 	            }
@@ -486,7 +610,7 @@
 
 
 /***/ },
-/* 5 */
+/* 11 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -510,11 +634,11 @@
 
 
 /***/ },
-/* 6 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var FileLoader = __webpack_require__(7);
-	var LoadFileInput = __webpack_require__(8);
+	var FileLoader = __webpack_require__(13);
+	var LoadFileInput = __webpack_require__(14);
 
 	module.exports = Backbone.View.extend({
 	    events: {
@@ -574,7 +698,7 @@
 
 
 /***/ },
-/* 7 */
+/* 13 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.Model.extend({
@@ -632,7 +756,7 @@
 
 
 /***/ },
-/* 8 */
+/* 14 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -680,7 +804,7 @@
 
 
 /***/ },
-/* 9 */
+/* 15 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -698,7 +822,7 @@
 
 
 /***/ },
-/* 10 */
+/* 16 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.Model.extend({
@@ -716,7 +840,7 @@
 
 
 /***/ },
-/* 11 */
+/* 17 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -738,7 +862,7 @@
 
 
 /***/ },
-/* 12 */
+/* 18 */
 /***/ function(module, exports) {
 
 	function textFieldKeyUpCallback(e) {

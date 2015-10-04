@@ -14,7 +14,7 @@ module.exports = joint.dia.Graph.extend({
         var prevItem = null;
 
         _.each(menu, function(type) {
-            var item = new joint.shapes.history[type]()
+            var item = new joint.shapes.history.nodes[type]()
                 .set('position', getItemPosition(item, prevItem))
                 .attr('text/text', type)
                 .prop('itemType', type);

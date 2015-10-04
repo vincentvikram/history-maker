@@ -1,10 +1,67 @@
+var dialogTemplate = _.template($('#template-link-dialog').html());
+function getLinkAttributes(callback) {
+    var linkTypes = {};
+
+    _.each(joint.shapes.history.links, function (type, key) {
+        linkTypes[key] = key.replace(/([A-Z])/g, ' $1');
+    });
+
+    var options = {
+        linkTypes: {
+            'UndirectedLink': 'Ordinary Relationship',
+            'UnidirectionalLink': 'Cause and Effect',
+            'BidirectionalLink': 'Parent-Child',
+        },
+        lineStyles: { 'solid': 'Solid Line', 'dotted': 'Dotted Line' },
+    };
+
+    var box = bootbox.dialog({
+        title: 'Add Link',
+        message: dialogTemplate(options),
+        onescape: true,
+        buttons: {
+            success: {
+                label: 'Add Link',
+                classname: 'btn-success',
+                callback: function() {
+                    var $form = $(this).find('form');
+
+                    var result = {
+                        text: $form.find('[name=text]').val(),
+                        linkType: $form.find('[name=link-type] option:selected').val(),
+                        lineStyle: $form.find('[name=line-style] option:selected').val(),
+                    };
+
+                    callback(result);
+                },
+            },
+        }
+    });
+
+    var submitOnEnterKeyPress = function(event) {
+        if (event.which == 13) {
+            $('.btn-success', box).trigger('click');
+        }
+    };
+
+    box.on('hidden.bs.modal', function () {
+        $(document).off('keypress', submitOnEnterKeyPress);
+    });
+
+    $(document).on('keypress', submitOnEnterKeyPress);
+
+    box.find('form').on('submit', function(event) {
+        event.preventDefault();
+    });
+}
+
 module.exports = function(graph) {
     $(document).on('ready', function() {
         $('#canvas svg').on('draginit', '.linkHandle', function(e, drag) {
             var view = $(this).parents('g.element').data('view');
             var model = view.model;
 
-            var link = new joint.shapes.history.Link({
+            var link = new joint.shapes.history.GenericLink({
                 source: {
                     id: model.id
                 },
@@ -16,6 +73,7 @@ module.exports = function(graph) {
 
             link.addTo(graph);
             $(this).data('view', view);
+            $(this).data('sourceView', view);
             $(this).data('link', link);
             $(this).data('offset', view.paper.$el.find('svg').offset());
             $(this).data('paper', view.paper);
@@ -56,14 +114,25 @@ module.exports = function(graph) {
 
             if (targetView) {
                 targetView.unhighlight();
-                link.set('target', {
-                    id: targetView.model.id
-                });
 
-                bootbox.prompt('Text for link', function (result) {
-                    link.setLabelText(result || '');
-                });
+                link.set('target', { id: targetView.model.id });
 
+                getLinkAttributes(function (result) {
+                    var newLink = new joint.shapes.history.links[result.linkType]({
+                        source: { id: $(this).data('sourceView').model.id },
+                        target: { id: targetView.model.id },
+                    });
+
+                    newLink.setLabelText(result.text);
+                    newLink.prop('lineStyle', result.lineStyle);
+
+                    if (result.lineStyle === 'dotted') {
+                        newLink.attr('.connection/stroke-dasharray', '2 5');
+                    }
+
+                    newLink.addTo(graph);
+                    link.remove();
+                }.bind(this));
             } else {
                 link.remove();
             }

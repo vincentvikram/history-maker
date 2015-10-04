@@ -51,7 +51,32 @@
         </div>
     </main>
 
+    <script type="text/template" id="template-link-dialog">
+        <form>
+          <div class="form-group">
+            <label>Link text</label>
+            <input type="text" class="form-control" name="text">
+          </div>
 
+          <div class="form-group">
+            <label>Link type</label>
+            <select class="form-control" name="link-type">
+            <% _.each(linkTypes, function (text, name) { %>
+                <option value="<%= name %>"><%= text %></option>
+            <% }); %>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Line style</label>
+            <select class="form-control" name="line-style">
+            <% _.each(lineStyles, function (text, name) { %>
+                <option value="<%= name %>"><%= text %></option>
+            <% }); %>
+            </select>
+          </div>
+        </form>
+    </script>
     <script type="text/template" id="template-file-load">
         <div class="form-group <%= formGroupClass %>">
             <label class="control-label"><%= label %></label>

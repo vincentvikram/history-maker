@@ -1,4 +1,14 @@
-joint.shapes.history = require('./misc/shapes');
+joint.shapes.history = {nodes: {}, links: {}};
+
+joint.shapes.history.GenericShape = require('./shapes/GenericShape');
+joint.shapes.history.GenericLink = require('./shapes/GenericLink');
+
+joint.shapes.history.nodes.Rectangle = require('./shapes/nodes/Rectangle');
+joint.shapes.history.nodes.Ellipse = require('./shapes/nodes/Ellipse');
+joint.shapes.history.links.UndirectedLink = require('./shapes/links/UndirectedLink');
+joint.shapes.history.links.UnidirectionalLink = require('./shapes/links/UnidirectionalLink');
+joint.shapes.history.links.BidirectionalLink = require('./shapes/links/BidirectionalLink');
+
 var MenuGraph = require('./models/MenuGraph');
 var MenuPaper = require('./views/MenuPaper');
 var linkHandles = require('./misc/linkHandles');
