@@ -215,6 +215,9 @@
 	    Link: joint.shapes.erd.Line.extend({
 	        defaults: joint.util.deepSupplement({
 	            type: 'history.Link',
+	            router: {
+	                name: 'metro',
+	            },
 	            labels: [{
 	                position: 0.5,
 	                attrs: {
