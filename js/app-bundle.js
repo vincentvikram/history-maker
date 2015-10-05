@@ -219,6 +219,9 @@
 	                fill: '#1A1A1A',
 	                stroke: '#1A1A1A',
 	            },
+	            text: {
+	                'ref-y': '75%',
+	            },
 	        },
 	    }, joint.shapes.history.GenericShape.prototype.defaults)
 	});
@@ -243,6 +246,7 @@
 	            },
 	            text: {
 	                fill: '#1A1A1A',
+	                'ref-y': '60%',
 	            },
 	        },
 	    }, joint.shapes.history.GenericShape.prototype.defaults)
@@ -268,7 +272,7 @@
 	            },
 	            text: {
 	                fill: '#1A1A1A',
-	                'ref-y': '70%',
+	                'ref-y': '80%',
 	            },
 	        },
 	    }, joint.shapes.history.GenericShape.prototype.defaults)

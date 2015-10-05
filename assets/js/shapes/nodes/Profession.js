@@ -13,6 +13,7 @@ module.exports = joint.shapes.history.GenericShape.extend({
             },
             text: {
                 fill: '#1A1A1A',
+                'ref-y': '60%',
             },
         },
     }, joint.shapes.history.GenericShape.prototype.defaults)
