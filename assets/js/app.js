@@ -7,6 +7,7 @@ joint.shapes.history.nodes.Community = require('./shapes/nodes/Community');
 joint.shapes.history.nodes.Profession = require('./shapes/nodes/Profession');
 joint.shapes.history.nodes.Identity = require('./shapes/nodes/Identity');
 joint.shapes.history.nodes.Idea = require('./shapes/nodes/Idea');
+joint.shapes.history.nodes.War = require('./shapes/nodes/War');
 
 joint.shapes.history.links.UndirectedLink = require('./shapes/links/UndirectedLink');
 joint.shapes.history.links.UnidirectionalLink = require('./shapes/links/UnidirectionalLink');
@@ -48,7 +49,7 @@ var menuGraph = new MenuGraph();
 var menuPaper = new MenuPaper({
     el: document.getElementById('menu'),
     model: menuGraph,
-    height: 500,
+    height: 650,
     width: 150,
     targetPaper: canvasPaper,
     zoom: zoom,
