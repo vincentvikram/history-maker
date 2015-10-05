@@ -51,20 +51,21 @@
 
 	joint.shapes.history.nodes.Community = __webpack_require__(3);
 	joint.shapes.history.nodes.Profession = __webpack_require__(4);
+	joint.shapes.history.nodes.Identity = __webpack_require__(5);
 
-	joint.shapes.history.links.UndirectedLink = __webpack_require__(5);
-	joint.shapes.history.links.UnidirectionalLink = __webpack_require__(6);
-	joint.shapes.history.links.BidirectionalLink = __webpack_require__(7);
+	joint.shapes.history.links.UndirectedLink = __webpack_require__(6);
+	joint.shapes.history.links.UnidirectionalLink = __webpack_require__(7);
+	joint.shapes.history.links.BidirectionalLink = __webpack_require__(8);
 
-	var MenuGraph = __webpack_require__(8);
-	var MenuPaper = __webpack_require__(9);
-	var linkHandles = __webpack_require__(10);
-	var SaveButton = __webpack_require__(11);
-	var LoadButton = __webpack_require__(12);
-	var ClearButton = __webpack_require__(15);
-	var Zoom = __webpack_require__(16);
-	var ZoomButton = __webpack_require__(17);
-	__webpack_require__(18);
+	var MenuGraph = __webpack_require__(9);
+	var MenuPaper = __webpack_require__(10);
+	var linkHandles = __webpack_require__(11);
+	var SaveButton = __webpack_require__(12);
+	var LoadButton = __webpack_require__(13);
+	var ClearButton = __webpack_require__(16);
+	var Zoom = __webpack_require__(17);
+	var ZoomButton = __webpack_require__(18);
+	__webpack_require__(19);
 
 	$.Drag.prototype.position = _.noop;
 
@@ -251,6 +252,32 @@
 /* 5 */
 /***/ function(module, exports) {
 
+	module.exports = joint.shapes.history.GenericShape.extend({
+	    markup: '<path class="outer" d="M 48.520822,0.99147164 C 30.680644,0.99194076 16.218458,15.454176 16.218024,33.294353 16.234248,45.800619 23.467749,57.173898 34.7874,62.491081 27.155919,65.540906 20.60422,70.54599 14.797954,77.765953 6.286586,88.349775 0.39257134,105.60483 1.0411826,118.04322 l 0.2092594,4.00588 3.6727363,1.81512 c 4.3479701,2.14906 14.9336687,4.34309 24.7041867,5.12003 4.604216,0.36612 9.358144,0.58283 14.108617,0.66248 20.781127,0.34845 41.496108,-1.92567 49.322305,-5.78634 3.441928,-1.6979 3.685672,-1.97917 3.891069,-4.48232 C 97.312112,114.95969 95.833742,104.755 93.977593,98.869628 88.435916,81.298492 77.241602,68.299442 62.631272,62.325825 73.750811,56.926624 80.814361,45.655395 80.824955,33.294353 80.824564,15.453652 66.361526,0.99121206 48.520822,0.99147164 Z"/><text/><g class="linkHandle"><circle/><polyline/></g>',
+	    defaults: joint.util.deepSupplement({
+	        type: 'history.nodes.Identity',
+	        size: {
+	            width: 100,
+	            height: 133,
+	        },
+	        attrs: {
+	            path: {
+	                fill: '#FFFFFF',
+	                stroke: '#1A1A1A',
+	            },
+	            text: {
+	                fill: '#1A1A1A',
+	                'ref-y': '70%',
+	            },
+	        },
+	    }, joint.shapes.history.GenericShape.prototype.defaults)
+	});
+
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
 	module.exports = joint.shapes.history.GenericLink.extend({
 	    defaults: joint.util.deepSupplement({
 	        type: 'history.links.UndirectedLink',
@@ -259,7 +286,7 @@
 
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports) {
 
 	module.exports = joint.shapes.history.GenericLink.extend({
@@ -274,7 +301,7 @@
 
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	module.exports = joint.shapes.history.GenericLink.extend({
@@ -289,7 +316,7 @@
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	function getItemPosition(item, prevItem) {
@@ -329,7 +356,7 @@
 
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	function moveSVGElementsToOrigin($svg) {
@@ -449,7 +476,7 @@
 
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	var dialogTemplate = _.template($('#template-link-dialog').html());
@@ -600,7 +627,7 @@
 
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -624,11 +651,11 @@
 
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var FileLoader = __webpack_require__(13);
-	var LoadFileInput = __webpack_require__(14);
+	var FileLoader = __webpack_require__(14);
+	var LoadFileInput = __webpack_require__(15);
 
 	module.exports = Backbone.View.extend({
 	    events: {
@@ -688,7 +715,7 @@
 
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.Model.extend({
@@ -746,7 +773,7 @@
 
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -794,7 +821,7 @@
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -812,7 +839,7 @@
 
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.Model.extend({
@@ -830,7 +857,7 @@
 
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -852,7 +879,7 @@
 
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 	function textFieldKeyUpCallback(e) {
