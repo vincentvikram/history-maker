@@ -52,20 +52,21 @@
 	joint.shapes.history.nodes.Community = __webpack_require__(3);
 	joint.shapes.history.nodes.Profession = __webpack_require__(4);
 	joint.shapes.history.nodes.Identity = __webpack_require__(5);
+	joint.shapes.history.nodes.Idea = __webpack_require__(6);
 
-	joint.shapes.history.links.UndirectedLink = __webpack_require__(6);
-	joint.shapes.history.links.UnidirectionalLink = __webpack_require__(7);
-	joint.shapes.history.links.BidirectionalLink = __webpack_require__(8);
+	joint.shapes.history.links.UndirectedLink = __webpack_require__(7);
+	joint.shapes.history.links.UnidirectionalLink = __webpack_require__(8);
+	joint.shapes.history.links.BidirectionalLink = __webpack_require__(9);
 
-	var MenuGraph = __webpack_require__(9);
-	var MenuPaper = __webpack_require__(10);
-	var linkHandles = __webpack_require__(11);
-	var SaveButton = __webpack_require__(12);
-	var LoadButton = __webpack_require__(13);
-	var ClearButton = __webpack_require__(16);
-	var Zoom = __webpack_require__(17);
-	var ZoomButton = __webpack_require__(18);
-	__webpack_require__(19);
+	var MenuGraph = __webpack_require__(10);
+	var MenuPaper = __webpack_require__(11);
+	var linkHandles = __webpack_require__(12);
+	var SaveButton = __webpack_require__(13);
+	var LoadButton = __webpack_require__(14);
+	var ClearButton = __webpack_require__(17);
+	var Zoom = __webpack_require__(18);
+	var ZoomButton = __webpack_require__(19);
+	__webpack_require__(20);
 
 	$.Drag.prototype.position = _.noop;
 
@@ -93,7 +94,7 @@
 	var menuPaper = new MenuPaper({
 	    el: document.getElementById('menu'),
 	    model: menuGraph,
-	    height: 400,
+	    height: 500,
 	    width: 150,
 	    targetPaper: canvasPaper,
 	    zoom: zoom,
@@ -278,6 +279,33 @@
 /* 6 */
 /***/ function(module, exports) {
 
+	module.exports = joint.shapes.history.GenericShape.extend({
+	    markup: '<g class="outer"><path d="M 56.911184,14.66605 C 56.2471,14.59983 55.5802,14.56624 54.91282,14.565276 l -0.04319,0 c -11.524925,-7.1848318 -27.003422,1.17544 -30.369113,11.302393 -8.41325,2.722112 -14.117056,10.551834 -14.128573,19.394509 0.0096,7.285478 3.897713,14.014588 10.207378,17.656879 l 0,0.02239 c 3.39442,16.135927 17.29726,25.205808 30.611676,17.652367 8.322362,4.429032 18.166122,2.850496 24.369512,-2.952709 5.51659,1.744382 11.91145,0.810799 16.45537,-1.767383 5.85499,2.928363 11.4452,3.574532 17.1858,1.513817 13.47226,4.645999 27.05867,-9.203383 27.36157,-19.165481 -0.01,-3.583138 -0.96059,-7.100885 -2.7598,-10.199605 1.80148,-3.102686 2.7534,-6.625392 2.7598,-10.213137 C 133.47316,24.586368 123.89074,15.689401 112.51832,17.730794 106.17622,10.795146 98.5714,7.4191542 90.3524,9.6289193 79.98797,-0.78221497 63.020486,2.4794383 56.911248,14.667233 Z"/><path d="m 4.6287564,105.66708 c -0.03935,-0.003 -0.07902,-0.006 -0.11869,-0.006 l -0.0014,0 c -0.684463,-0.42671 -1.603713,0.0697 -1.80363,0.67125 -0.499647,0.16155 -0.838407,0.62665 -0.839079,1.15183 0,0.43265 0.23162,0.83229 0.606212,1.04859 l 0,0.001 c 0.201547,0.95834 1.027286,1.49698 1.818026,1.04836 0.49424,0.26298 1.078825,0.16924 1.447242,-0.17531 0.327659,0.10365 0.707433,0.0483 0.977283,-0.10493 0.347719,0.17403 0.679697,0.21242 1.020633,0.0899 0.800113,0.27577 1.606977,-0.54658 1.624988,-1.13823 0,-0.21275 -0.05694,-0.42168 -0.163798,-0.60573 0.106853,-0.18427 0.163478,-0.39347 0.163798,-0.60657 -0.183613,-0.78526 -0.752586,-1.31367 -1.427995,-1.19242 -0.376639,-0.41193 -0.828266,-0.61239 -1.316396,-0.48116 -0.615521,-0.61834 -1.623229,-0.42463 -1.986047,0.29912 z"/><path d="m 17.2748,90.215653 c -0.0691,-0.0064 -0.138204,-0.0096 -0.207306,-0.0096 l -0.0032,0 c -1.195692,-0.745375 -2.801549,0.121889 -3.150738,1.172561 -0.872831,0.282487 -1.464582,1.094757 -1.465766,2.012152 0,0.755869 0.404344,1.453993 1.058959,1.831847 l 0,0.0028 c 0.352165,1.674064 1.794544,2.615037 3.175915,1.831367 0.863393,0.459497 1.884665,0.295604 2.528243,-0.306481 0.572332,0.181074 1.235777,0.08414 1.707175,-0.183312 0.607427,0.303921 1.187437,0.37088 1.782963,0.157079 1.397719,0.481956 2.807243,-0.954825 2.838691,-1.988382 0,-0.371744 -0.09949,-0.736706 -0.286326,-1.058191 0.186832,-0.321901 0.285686,-0.687342 0.286326,-1.059598 -0.320589,-1.371806 -1.314732,-2.294863 -2.494588,-2.083078 -0.657974,-0.719558 -1.446922,-1.069772 -2.299629,-0.840551 -1.075275,-1.080105 -2.835588,-0.741728 -3.46944,0.522745 z"/></g><text/><g class="linkHandle"><circle/><polyline/></g>',
+	    defaults: joint.util.deepSupplement({
+	        type: 'history.nodes.Idea',
+	        size: {
+	            width: 140,
+	            height: 112,
+	        },
+	        attrs: {
+	            path: {
+	                fill: '#FFFFFF',
+	                stroke: '#1A1A1A',
+	            },
+	            text: {
+	                fill: '#1A1A1A',
+	                'ref-x': '55%',
+	                'ref-y': '40%',
+	            },
+	        },
+	    }, joint.shapes.history.GenericShape.prototype.defaults)
+	});
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
 	module.exports = joint.shapes.history.GenericLink.extend({
 	    defaults: joint.util.deepSupplement({
 	        type: 'history.links.UndirectedLink',
@@ -286,7 +314,7 @@
 
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	module.exports = joint.shapes.history.GenericLink.extend({
@@ -301,7 +329,7 @@
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = joint.shapes.history.GenericLink.extend({
@@ -316,7 +344,7 @@
 
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	function getItemPosition(item, prevItem) {
@@ -356,7 +384,7 @@
 
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	function moveSVGElementsToOrigin($svg) {
@@ -476,7 +504,7 @@
 
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
 	var dialogTemplate = _.template($('#template-link-dialog').html());
@@ -627,7 +655,7 @@
 
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -651,11 +679,11 @@
 
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var FileLoader = __webpack_require__(14);
-	var LoadFileInput = __webpack_require__(15);
+	var FileLoader = __webpack_require__(15);
+	var LoadFileInput = __webpack_require__(16);
 
 	module.exports = Backbone.View.extend({
 	    events: {
@@ -715,7 +743,7 @@
 
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.Model.extend({
@@ -773,7 +801,7 @@
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -821,7 +849,7 @@
 
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -839,7 +867,7 @@
 
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.Model.extend({
@@ -857,7 +885,7 @@
 
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -879,7 +907,7 @@
 
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	function textFieldKeyUpCallback(e) {
