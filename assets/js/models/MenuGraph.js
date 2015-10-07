@@ -23,7 +23,7 @@ module.exports = joint.dia.Graph.extend({
             var item = new node();
 
             item.set('position', getItemPosition(item, prevItem))
-                .attr('text/text', type)
+                .attr('text/text', type.replace(/([^^])([A-Z])/g, '$1 $2'))
                 .prop('itemType', type);
 
             this.addCell(item);

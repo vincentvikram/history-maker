@@ -10,7 +10,7 @@ module.exports = joint.dia.Element.extend({
                 'font-family': 'Arial',
                 'font-size': 14,
                 'letter-spacing': 0,
-                fill: '#ffffff',
+                fill: '#1A1A1A',
                 ref: '.outer',
                 'ref-x': 0.5,
                 'ref-y': 0.5,
