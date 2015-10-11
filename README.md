@@ -12,11 +12,9 @@ This repo is currently under heavy development and no effort has been made to
 make the code readable or robust in any way. Currently, the sole purpose of
 this repo is to facilitate distribution.
 
+The app uses JointJS (http://www.jointjs.com) to implement basic interactive
+flowchart/UML/ER-style diagrams that can be used to reconstruct historical data
+visually.
+
 The repo is also subject to commit amends, so don't count on the git history
 being sane.
-
-# Current Version
-
-The app uses JointJS (http://www.jointjs.com) to implement basic interactive
-flowchart/UML/ER-style diagrams that can be used to represent historical data
-visually.
