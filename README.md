@@ -1,10 +1,10 @@
 # History-maker
-This is version two of the project related to historical thinking 
-started. A primitive version can be found here 
+This is version two of the project related to historical thinking. 
+A primitive version can be found here 
 https://github.com/vincentvikram/historical-thinking
 Participatory design research 
 (https://en.wikipedia.org/wiki/Participatory_design) has been used 
-to obtain the type of signs or notations that should be used to 
+to obtain the signs or notations that have been used to 
 develop historical thinking. The following tool is part of ongoing 
 research work.
 
