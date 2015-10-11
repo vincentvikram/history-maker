@@ -2,12 +2,13 @@
 This is version two of the project related to historical thinking 
 started. A primitive version can be found here 
 https://github.com/vincentvikram/historical-thinking
-Participatory design research has been used to obtain the 
-type of signs or notations that should be used to develop historical 
-thinking. The following tool is part of ongoing research work.
+Participatory design research 
+(https://en.wikipedia.org/wiki/Participatory_design) has been used 
+to obtain the type of signs or notations that should be used to 
+develop historical thinking. The following tool is part of ongoing 
+research work.
 
 # Work in progress
-
 This repo is currently under heavy development and no effort has been made to
 make the code readable or robust in any way. Currently, the sole purpose of
 this repo is to facilitate distribution.
