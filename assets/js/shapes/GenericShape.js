@@ -33,6 +33,9 @@ module.exports = joint.dia.Element.extend({
                 'x-alignment': 'middle',
                 'y-alignment': 'middle',
             },
+            '.filled': {
+                fill: '#ffffff',
+            }
         },
     },
 });
