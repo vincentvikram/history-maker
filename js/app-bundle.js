@@ -75,15 +75,29 @@
 	joint.shapes.history.links.UnidirectionalLink = __webpack_require__(25);
 	joint.shapes.history.links.BidirectionalLink = __webpack_require__(26);
 
-	var MenuGraph = __webpack_require__(27);
-	var MenuPaper = __webpack_require__(28);
-	var linkHandles = __webpack_require__(29);
-	var SaveButton = __webpack_require__(30);
-	var LoadButton = __webpack_require__(31);
-	var ClearButton = __webpack_require__(34);
-	var Zoom = __webpack_require__(35);
-	var ZoomButton = __webpack_require__(36);
-	__webpack_require__(37);
+	joint.shapes.isat = {nodes: {}, links: {}};
+
+	joint.shapes.isat.nodes.Data = __webpack_require__(27);
+	joint.shapes.isat.nodes.Phase = __webpack_require__(28);
+	joint.shapes.isat.nodes.Query = __webpack_require__(29);
+	joint.shapes.isat.nodes.Question = __webpack_require__(30);
+	joint.shapes.isat.nodes.Stratum = __webpack_require__(31);
+
+	joint.shapes.isat.links.NormalLink = __webpack_require__(32);
+	joint.shapes.isat.links.AlignedLink = __webpack_require__(33);
+	joint.shapes.isat.links.StarburstLink = __webpack_require__(34);
+	joint.shapes.isat.links.SlideLink = __webpack_require__(35);
+
+	var MenuGraph = __webpack_require__(36);
+	var MenuPaper = __webpack_require__(37);
+	var linkHandles = __webpack_require__(38);
+	var SaveButton = __webpack_require__(39);
+	var LoadButton = __webpack_require__(40);
+	var ClearButton = __webpack_require__(43);
+	var ISATButton = __webpack_require__(44);
+	var Zoom = __webpack_require__(45);
+	var ZoomButton = __webpack_require__(46);
+	__webpack_require__(47);
 
 	$.Drag.prototype.position = _.noop;
 
@@ -142,6 +156,11 @@
 	var zoomOutButton = new ZoomButton({
 	    el: document.getElementById('zoom-out-btn'),
 	    model: zoom,
+	});
+
+	var iSatButton = new ISATButton({
+	    el: document.getElementById('isat-btn'),
+	    model: menuGraph,
 	});
 
 
@@ -671,6 +690,150 @@
 /* 27 */
 /***/ function(module, exports) {
 
+	module.exports = joint.shapes.history.GenericShape.extend({
+	    markup: '<g class="outer"><path style="fill:#cccccc" d="m 122.35294,126.94118 c 0,10.13541 -8.21753,18.35294 -18.35294,18.35294 l -85.647059,0 C 8.217529,145.29412 0,137.07659 0,126.94118 L 0,26 C 0,15.864589 8.217529,7.6470588 18.352941,7.6470588 l 85.647059,0 c 10.13541,0 18.35294,8.2175302 18.35294,18.3529412 l 0,100.94118 z"></path><path style="fill:#cccccc;stroke:#ffffff;stroke-width:3.05882359;stroke-miterlimit:10" d="m 128.47059,120.82353 c 0,10.13541 -8.21753,18.35294 -18.35294,18.35294 l -85.647062,0 c -10.135412,0 -18.352941,-8.21753 -18.352941,-18.35294 l 0,-100.941177 c 0,-10.1354112 8.217529,-18.3529412 18.352941,-18.3529412 l 85.647062,0 c 10.13541,0 18.35294,8.21753 18.35294,18.3529412 l 0,100.941177 z" stroke-miterlimit="10"></path></g><text/><g class="linkHandle"><circle/><polyline/></g>',
+	    defaults: joint.util.deepSupplement({
+	        type: 'isat.nodes.Data',
+	        size: {
+	            width: 130,
+	            height: 145,
+	        },
+	    }, joint.shapes.history.GenericShape.prototype.defaults)
+	});
+
+
+/***/ },
+/* 28 */
+/***/ function(module, exports) {
+
+	module.exports = joint.shapes.history.GenericShape.extend({
+	    markup: '<g class="outer"><rect ry="25.517525" y="-0.46710238" x="-7.5101852e-06" height="125.71101" width="130.00002" style="fill:#ffffff;stroke:none;stroke-width:2.00000024;stroke-miterlimit:10;stroke-dasharray:none"></rect><rect ry="0" y="52.819183" x="-7.5101852e-06" height="72.424728" width="130.00002" style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.171;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:12.684, 12.684;stroke-dashoffset:0"></rect><path style="fill:none;stroke:#cccccc;stroke-width:3.17100038;stroke-miterlimit:10;stroke-dasharray:12.68400151,12.68400151;stroke-linejoin:round;stroke-dashoffset:0" d="m 109.39024,123.65854 -95.121947,0 m 114.146347,-6.34146 0,6.34146 -6.34147,0 M 1.5853659,104.63415 l 0,-84.817076 C 1.5853659,9.3108539 10.89622,1.5853659 21.40244,1.5853659 l 88.78049,0 c 10.50622,0 18.23171,7.725488 18.23171,18.2317081 l 0,91.158536 m -120.4878105,12.68293 -6.3414636,0 0,-6.34146"></path></g><text/><g class="linkHandle"><circle/><polyline/></g>',
+	    defaults: joint.util.deepSupplement({
+	        type: 'isat.nodes.Phase',
+	        size: {
+	            width: 130,
+	            height: 126,
+	        },
+	    }, joint.shapes.history.GenericShape.prototype.defaults)
+	});
+
+
+/***/ },
+/* 29 */
+/***/ function(module, exports) {
+
+	module.exports = joint.shapes.history.GenericShape.extend({
+	    markup: '<g class="outer"><path d="m 130,126.75 c 0,10.76887 -8.73113,19.5 -19.5,19.5 l -91,0 C 8.731125,146.25 0,137.51887 0,126.75 L 0,19.5 C 0,8.731125 8.731125,0 19.5,0 l 91,0 C 121.26887,0 130,8.731125 130,19.5 l 0,107.25 z" style="fill:#cccccc"></path><path d="m 124.3125,131.625 c 0,0 -9.8345,9.75 -15.4375,9.75 -5.603,0 -15.4375,-9.75 -15.4375,-9.75 0,0 9.8345,-9.75 15.4375,-9.75 5.603,0 15.4375,9.75 15.4375,9.75 z" style="fill:#ffffff"></path><circle cx="108.875" cy="131.28375" r="7.1126246" style="fill:#cccccc"></circle><path d="m 108.27551,133.49634 0,-0.34912 q 0,-0.75537 0.24121,-1.2251 0.24121,-0.47608 0.85058,-0.98389 0.6919,-0.58398 0.90772,-0.83789 0.21582,-0.2539 0.30468,-0.50781 0.0889,-0.25391 0.0889,-0.59033 0,-0.62842 -0.40625,-0.96485 -0.40625,-0.33642 -1.16797,-0.33642 -0.50781,0 -0.99658,0.12695 -0.48242,0.12695 -1.08545,0.41895 l -0.3999,-0.90772 q 1.20605,-0.64111 2.5581,-0.64111 1.20606,0 1.89795,0.60303 0.6919,0.59668 0.6919,1.67578 0,0.46972 -0.12695,0.83154 -0.12696,0.36182 -0.38721,0.68555 -0.25391,0.32373 -1.02197,0.96484 -0.62842,0.53955 -0.8379,0.89502 -0.20312,0.34912 -0.20312,0.92676 l 0,0.21582 -0.90771,0 z m -0.29834,1.91064 q 0,-0.86963 0.80615,-0.86963 0.36816,0 0.57763,0.22217 0.21582,0.21582 0.21582,0.64746 0,0.4253 -0.21582,0.66016 -0.21582,0.22851 -0.57763,0.22851 -0.35547,0 -0.58399,-0.20947 -0.22216,-0.20947 -0.22216,-0.6792 z" style="font-size:13px;font-family:Helvetica-Bold;fill:#ffffff"></path></g><text/><g class="linkHandle"><circle/><polyline/></g>',
+	    defaults: joint.util.deepSupplement({
+	        type: 'history.nodes.Query',
+	        size: {
+	            width: 130,
+	            height: 146,
+	        },
+	    }, joint.shapes.history.GenericShape.prototype.defaults)
+	});
+
+
+/***/ },
+/* 30 */
+/***/ function(module, exports) {
+
+	module.exports = joint.shapes.history.GenericShape.extend({
+	    markup: '<g class="outer"><path style="fill:#cccccc" d="m 129.62571,126.38506 c 0,10.73787 -8.70599,19.44386 -19.44386,19.44386 l -90.737994,0 C 8.705986,145.82892 0,137.12293 0,126.38506 L 0,19.443856 C 0,8.705986 8.705986,0 19.443856,0 l 90.737994,0 c 10.73787,0 19.44386,8.705986 19.44386,19.443856 l 0,106.941204 z"></path><path d="m 103.39594,101.32031 c 2.56659,-1.652727 5.72298,-2.480711 9.46592,-2.480711 4.91767,0 9.00575,1.176351 12.25773,3.525821 3.25199,2.34946 4.88041,5.83315 4.88041,10.44621 0,2.82908 -0.70646,5.21257 -2.11614,7.14886 -0.82475,1.17635 -2.4078,2.67677 -4.75402,4.50449 l -2.3122,1.79532 c -1.25899,0.97867 -2.09508,2.12262 -2.50664,3.42698 -0.26087,0.8296 -0.40184,2.11289 -0.42452,3.85312 l -8.84696,0 c 0.12963,-3.67813 0.47638,-6.21879 1.04187,-7.62199 0.56549,-1.40482 2.01892,-3.02028 4.36028,-4.848 l 2.37863,-1.86013 c 0.77938,-0.58818 1.40968,-1.22983 1.88606,-1.92656 0.86849,-1.19418 1.30274,-2.51312 1.30274,-3.95035 0,-1.65435 -0.48286,-3.16124 -1.45019,-4.52069 -0.96571,-1.35945 -2.73024,-2.04161 -5.29197,-2.04161 -2.5196,0 -4.30519,0.83933 -5.3584,2.51474 -1.05321,1.67541 -1.57982,3.41564 -1.57982,5.22392 l -9.43513,0 c 0.26574,-6.20259 2.43211,-10.59853 6.50235,-13.18942 z m 5.41674,36.69542 9.76081,0 0,9.43351 -9.76081,0 0,-9.43351 z" style="fill:#ffffff"></path></g><text/><g class="linkHandle"><circle/><polyline/></g>',
+	    defaults: joint.util.deepSupplement({
+	        type: 'isat.nodes.Question',
+	        size: {
+	            width: 130,
+	            height: 147,
+	        },
+	    }, joint.shapes.history.GenericShape.prototype.defaults)
+	});
+
+
+/***/ },
+/* 31 */
+/***/ function(module, exports) {
+
+	module.exports = joint.shapes.history.GenericShape.extend({
+	    markup: '<g class="outer"><path style="fill:#cccccc" d="m 130,126.75 c 0,10.76887 -8.73113,19.5 -19.5,19.5 l -91,0 C 8.731125,146.25 0,137.51887 0,126.75 L 0,19.5 C 0,8.731125 8.731125,0 19.5,0 l 91,0 C 121.26887,0 130,8.731125 130,19.5 l 0,107.25 z"></path><line style="fill:none;stroke:#ffffff;stroke-width:3.25;stroke-miterlimit:10" y2="128.375" x2="130" y1="128.375" x1="0" stroke-miterlimit="10"></line></g><text/><g class="linkHandle"><circle/><polyline/></g>',
+	    defaults: joint.util.deepSupplement({
+	        type: 'isat.nodes.Stratum',
+	        size: {
+	            width: 130,
+	            height: 146,
+	        },
+	    }, joint.shapes.history.GenericShape.prototype.defaults)
+	});
+
+
+/***/ },
+/* 32 */
+/***/ function(module, exports) {
+
+	module.exports = joint.shapes.history.GenericLink.extend({
+	    defaults: joint.util.deepSupplement({
+	        type: 'history.links.isat.NormalLink',
+	        attrs: {
+	            '.marker-source': { fill: '#808080', stroke: '#808080', d: 'M 0 0 L 0 10 L 5 10 L 5 0 z'},
+	            '.marker-target': { fill: '#808080', stroke: '#808080', d: 'M 10 0 L 0 5 L 10 10 z' },
+	            '.connection': { stroke: '#808080' },
+	        },
+	    }, joint.shapes.history.GenericLink.prototype.defaults),
+	});
+
+
+/***/ },
+/* 33 */
+/***/ function(module, exports) {
+
+	module.exports = joint.shapes.history.GenericLink.extend({
+	    defaults: joint.util.deepSupplement({
+	        type: 'history.links.isat.AlignedLink',
+	        attrs: {
+	            '.marker-source': { fill: '#29ABE2', stroke: '#29ABE2', d: 'M 0 0 L 0 10 L 5 10 L 5 0 z'},
+	            '.marker-target': { fill: '#29ABE2', stroke: '#29ABE2', d: 'M 10 0 L 0 5 L 10 10 z' },
+	            '.connection': { stroke: '#29ABE2' },
+	        },
+	    }, joint.shapes.history.GenericLink.prototype.defaults),
+	});
+
+
+/***/ },
+/* 34 */
+/***/ function(module, exports) {
+
+	module.exports = joint.shapes.history.GenericLink.extend({
+	    defaults: joint.util.deepSupplement({
+	        type: 'history.links.isat.StarburstLink',
+	        attrs: {
+	            '.marker-source': { fill: '#009245', stroke: '#009245', d: 'M 0 0 L 0 10 L 5 10 L 5 0 z'},
+	            '.marker-target': { fill: '#009245', stroke: '#009245', d: 'M 10 0 L 0 5 L 10 10 z' },
+	            '.connection': { stroke: '#009245' },
+	        },
+	    }, joint.shapes.history.GenericLink.prototype.defaults),
+	});
+
+
+/***/ },
+/* 35 */
+/***/ function(module, exports) {
+
+	module.exports = joint.shapes.history.GenericLink.extend({
+	    defaults: joint.util.deepSupplement({
+	        type: 'history.links.isat.SlideLink',
+	        attrs: {
+	            '.marker-source': { fill: '#C1272D', stroke: '#C1272D', d: 'M 0 0 L 0 10 L 5 10 L 5 0 z'},
+	            '.marker-target': { fill: '#C1272D', stroke: '#C1272D', d: 'M 10 0 L 0 5 L 10 10 z' },
+	            '.connection': { stroke: '#C1272D' },
+	        },
+	    }, joint.shapes.history.GenericLink.prototype.defaults),
+	});
+
+
+/***/ },
+/* 36 */
+/***/ function(module, exports) {
+
 	function getItemPosition(item, prevItem) {
 	    var x = 0, y = 0;
 
@@ -703,12 +866,13 @@
 
 	            prevItem = item;
 	        }, this);
+	        prevItem = null;
 	    }
 	});
 
 
 /***/ },
-/* 28 */
+/* 37 */
 /***/ function(module, exports) {
 
 	function moveSVGElementsToOrigin($svg) {
@@ -770,7 +934,8 @@
 	function createNewItem(type, paper, callback) {
 	    bootbox.prompt('Text for ' + type, function (result) {
 	        var text = result || '';
-	        var newItem = new joint.shapes.history.nodes[type]();
+	        var constructor = joint.shapes.history.nodes[type] || joint.shapes.isat.nodes[type];
+	        var newItem = new constructor();
 
 	        newItem.attr('text/text', text);
 	        callback(newItem);
@@ -828,25 +993,39 @@
 
 
 /***/ },
-/* 29 */
+/* 38 */
 /***/ function(module, exports) {
 
 	var dialogTemplate = _.template($('#template-link-dialog').html());
 	function getLinkAttributes(callback) {
 	    var linkTypes = {};
-
-	    _.each(joint.shapes.history.links, function (type, key) {
-	        linkTypes[key] = key.replace(/([A-Z])/g, ' $1');
-	    });
+	    var shapes;
 
 	    var options = {
-	        linkTypes: {
+	        linkTypes: {},
+	        lineStyles: { 'solid': 'Solid Line', 'dotted': 'Dotted Line' },
+	    };
+
+	    if (window.iSATMode) {
+	        shapes = joint.shapes.isat.links;
+	        options.linkTypes = {
+	            'NormalLink': 'Normal',
+	            'AlignedLink': 'Aligned',
+	            'StarburstLink': 'Starburst',
+	            'SlideLink': 'Slide',
+	        };
+	    } else {
+	        shapes = joint.shapes.history.links;
+	        options.linkTypes = {
 	            'UndirectedLink': 'Ordinary Relationship',
 	            'UnidirectionalLink': 'Cause and Effect',
 	            'BidirectionalLink': 'Parent-Child',
-	        },
-	        lineStyles: { 'solid': 'Solid Line', 'dotted': 'Dotted Line' },
-	    };
+	        };
+	    }
+
+	    _.each(shapes, function (type, key) {
+	        linkTypes[key] = key.replace(/([A-Z])/g, ' $1');
+	    });
 
 	    var box = bootbox.dialog({
 	        title: 'Add Link',
@@ -951,7 +1130,8 @@
 	                link.set('target', { id: targetView.model.id });
 
 	                getLinkAttributes(function (result) {
-	                    var newLink = new joint.shapes.history.links[result.linkType]({
+	                    var constructor = joint.shapes.history.links[result.linkType] || joint.shapes.isat.links[result.linkType];
+	                    var newLink = new constructor({
 	                        source: { id: $(this).data('sourceView').model.id },
 	                        target: { id: targetView.model.id },
 	                    });
@@ -979,7 +1159,7 @@
 
 
 /***/ },
-/* 30 */
+/* 39 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -1003,11 +1183,11 @@
 
 
 /***/ },
-/* 31 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var FileLoader = __webpack_require__(32);
-	var LoadFileInput = __webpack_require__(33);
+	var FileLoader = __webpack_require__(41);
+	var LoadFileInput = __webpack_require__(42);
 
 	module.exports = Backbone.View.extend({
 	    events: {
@@ -1067,7 +1247,7 @@
 
 
 /***/ },
-/* 32 */
+/* 41 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.Model.extend({
@@ -1125,7 +1305,7 @@
 
 
 /***/ },
-/* 33 */
+/* 42 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -1173,7 +1353,7 @@
 
 
 /***/ },
-/* 34 */
+/* 43 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -1191,7 +1371,31 @@
 
 
 /***/ },
-/* 35 */
+/* 44 */
+/***/ function(module, exports) {
+
+	window.iSATMode = false;
+
+	module.exports = Backbone.View.extend({
+	    events: {
+	        'click': 'doToggle',
+	    },
+	    doToggle: function() {
+	        this.model.clear();
+
+	        window.iSATMode = !window.iSATMode;
+
+	        if (window.iSATMode) {
+	            this.model.addItems(joint.shapes.isat.nodes);
+	        } else {
+	            this.model.addItems(joint.shapes.history.nodes);
+	        }
+	    },
+	});
+
+
+/***/ },
+/* 45 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.Model.extend({
@@ -1209,7 +1413,7 @@
 
 
 /***/ },
-/* 36 */
+/* 46 */
 /***/ function(module, exports) {
 
 	module.exports = Backbone.View.extend({
@@ -1231,7 +1435,7 @@
 
 
 /***/ },
-/* 37 */
+/* 47 */
 /***/ function(module, exports) {
 
 	function textFieldKeyUpCallback(e) {

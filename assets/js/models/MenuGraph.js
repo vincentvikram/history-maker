@@ -30,5 +30,6 @@ module.exports = joint.dia.Graph.extend({
 
             prevItem = item;
         }, this);
+        prevItem = null;
     }
 });

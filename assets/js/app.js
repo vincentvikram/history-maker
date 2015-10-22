@@ -29,12 +29,26 @@ joint.shapes.history.links.UndirectedLink = require('./shapes/links/UndirectedLi
 joint.shapes.history.links.UnidirectionalLink = require('./shapes/links/UnidirectionalLink');
 joint.shapes.history.links.BidirectionalLink = require('./shapes/links/BidirectionalLink');
 
+joint.shapes.isat = {nodes: {}, links: {}};
+
+joint.shapes.isat.nodes.Data = require('./shapes/nodes/isat/Data');
+joint.shapes.isat.nodes.Phase = require('./shapes/nodes/isat/Phase');
+joint.shapes.isat.nodes.Query = require('./shapes/nodes/isat/Query');
+joint.shapes.isat.nodes.Question = require('./shapes/nodes/isat/Question');
+joint.shapes.isat.nodes.Stratum = require('./shapes/nodes/isat/Stratum');
+
+joint.shapes.isat.links.NormalLink = require('./shapes/links/isat/NormalLink');
+joint.shapes.isat.links.AlignedLink = require('./shapes/links/isat/AlignedLink');
+joint.shapes.isat.links.StarburstLink = require('./shapes/links/isat/StarburstLink');
+joint.shapes.isat.links.SlideLink = require('./shapes/links/isat/SlideLink');
+
 var MenuGraph = require('./models/MenuGraph');
 var MenuPaper = require('./views/MenuPaper');
 var linkHandles = require('./misc/linkHandles');
 var SaveButton = require('./views/SaveButton');
 var LoadButton = require('./views/LoadButton');
 var ClearButton = require('./views/ClearButton');
+var ISATButton = require('./views/ISATButton');
 var Zoom = require('./models/Zoom');
 var ZoomButton = require('./views/ZoomButton');
 require('./misc/contextMenu');
@@ -96,4 +110,9 @@ var zoomInButton = new ZoomButton({
 var zoomOutButton = new ZoomButton({
     el: document.getElementById('zoom-out-btn'),
     model: zoom,
+});
+
+var iSatButton = new ISATButton({
+    el: document.getElementById('isat-btn'),
+    model: menuGraph,
 });

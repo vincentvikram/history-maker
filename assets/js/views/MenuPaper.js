@@ -57,7 +57,8 @@ function getNewItemPosition(drag, itemSize, paper, zoom) {
 function createNewItem(type, paper, callback) {
     bootbox.prompt('Text for ' + type, function (result) {
         var text = result || '';
-        var newItem = new joint.shapes.history.nodes[type]();
+        var constructor = joint.shapes.history.nodes[type] || joint.shapes.isat.nodes[type];
+        var newItem = new constructor();
 
         newItem.attr('text/text', text);
         callback(newItem);

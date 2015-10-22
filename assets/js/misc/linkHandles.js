@@ -1,19 +1,33 @@
 var dialogTemplate = _.template($('#template-link-dialog').html());
 function getLinkAttributes(callback) {
     var linkTypes = {};
-
-    _.each(joint.shapes.history.links, function (type, key) {
-        linkTypes[key] = key.replace(/([A-Z])/g, ' $1');
-    });
+    var shapes;
 
     var options = {
-        linkTypes: {
+        linkTypes: {},
+        lineStyles: { 'solid': 'Solid Line', 'dotted': 'Dotted Line' },
+    };
+
+    if (window.iSATMode) {
+        shapes = joint.shapes.isat.links;
+        options.linkTypes = {
+            'NormalLink': 'Normal',
+            'AlignedLink': 'Aligned',
+            'StarburstLink': 'Starburst',
+            'SlideLink': 'Slide',
+        };
+    } else {
+        shapes = joint.shapes.history.links;
+        options.linkTypes = {
             'UndirectedLink': 'Ordinary Relationship',
             'UnidirectionalLink': 'Cause and Effect',
             'BidirectionalLink': 'Parent-Child',
-        },
-        lineStyles: { 'solid': 'Solid Line', 'dotted': 'Dotted Line' },
-    };
+        };
+    }
+
+    _.each(shapes, function (type, key) {
+        linkTypes[key] = key.replace(/([A-Z])/g, ' $1');
+    });
 
     var box = bootbox.dialog({
         title: 'Add Link',
@@ -118,7 +132,8 @@ module.exports = function(graph) {
                 link.set('target', { id: targetView.model.id });
 
                 getLinkAttributes(function (result) {
-                    var newLink = new joint.shapes.history.links[result.linkType]({
+                    var constructor = joint.shapes.history.links[result.linkType] || joint.shapes.isat.links[result.linkType];
+                    var newLink = new constructor({
                         source: { id: $(this).data('sourceView').model.id },
                         target: { id: targetView.model.id },
                     });
