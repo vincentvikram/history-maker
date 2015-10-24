@@ -127,7 +127,7 @@
 	var menuPaper = new MenuPaper({
 	    el: document.getElementById('menu'),
 	    model: menuGraph,
-	    height: 2350,
+	    height: 800,
 	    width: 150,
 	    targetPaper: canvasPaper,
 	    zoom: zoom,
@@ -163,6 +163,14 @@
 	var iSatButton = new ISATButton({
 	    el: document.getElementById('isat-btn'),
 	    model: menuGraph,
+	});
+
+	iSatButton.on('switch', function(mode){
+	    if (mode === 'isat') {
+	        menuPaper.setDimensions(150, 800);
+	    } else {
+	        menuPaper.setDimensions(150, 2350);
+	    }
 	});
 
 
@@ -1392,6 +1400,7 @@
 	            this.model.addItems(joint.shapes.history.nodes);
 	            window.jQuery('.title').text('History Maker');
 	        }
+	        this.trigger('switch', window.iSATMode ? 'isat' : 'history');
 	    },
 	});
 

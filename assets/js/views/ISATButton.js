@@ -14,5 +14,6 @@ module.exports = Backbone.View.extend({
             this.model.addItems(joint.shapes.history.nodes);
             window.jQuery('.title').text('History Maker');
         }
+        this.trigger('switch', window.iSATMode ? 'isat' : 'history');
     },
 });
