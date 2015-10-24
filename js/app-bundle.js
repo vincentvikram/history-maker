@@ -1387,8 +1387,10 @@
 
 	        if (window.iSATMode) {
 	            this.model.addItems(joint.shapes.isat.nodes);
+	            window.jQuery('.title').text('iSAT Planner');
 	        } else {
 	            this.model.addItems(joint.shapes.history.nodes);
+	            window.jQuery('.title').text('History Maker');
 	        }
 	    },
 	});
