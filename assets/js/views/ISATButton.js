@@ -1,5 +1,3 @@
-window.iSATMode = false;
-
 module.exports = Backbone.View.extend({
     events: {
         'click': 'doToggle',

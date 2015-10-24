@@ -1,3 +1,5 @@
+window.iSATMode = true;
+
 joint.shapes.history = {nodes: {}, links: {}};
 
 joint.shapes.history.GenericShape = require('./shapes/GenericShape');
@@ -85,7 +87,7 @@ var menuPaper = new MenuPaper({
     zoom: zoom,
 });
 
-menuGraph.addItems(joint.shapes.history.nodes);
+menuGraph.addItems(joint.shapes.isat.nodes);
 
 var saveButton = new SaveButton({
     el: document.getElementById('save-btn'),

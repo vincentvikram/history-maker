@@ -44,6 +44,8 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
+	window.iSATMode = true;
+
 	joint.shapes.history = {nodes: {}, links: {}};
 
 	joint.shapes.history.GenericShape = __webpack_require__(1);
@@ -131,7 +133,7 @@
 	    zoom: zoom,
 	});
 
-	menuGraph.addItems(joint.shapes.history.nodes);
+	menuGraph.addItems(joint.shapes.isat.nodes);
 
 	var saveButton = new SaveButton({
 	    el: document.getElementById('save-btn'),
@@ -772,7 +774,7 @@
 
 	module.exports = joint.shapes.history.GenericLink.extend({
 	    defaults: joint.util.deepSupplement({
-	        type: 'history.links.isat.NormalLink',
+	        type: 'isat.links.NormalLink',
 	        attrs: {
 	            '.marker-source': { fill: '#808080', stroke: '#808080', d: 'M 0 0 L 0 10 L 5 10 L 5 0 z'},
 	            '.marker-target': { fill: '#808080', stroke: '#808080', d: 'M 10 0 L 0 5 L 10 10 z' },
@@ -788,7 +790,7 @@
 
 	module.exports = joint.shapes.history.GenericLink.extend({
 	    defaults: joint.util.deepSupplement({
-	        type: 'history.links.isat.AlignedLink',
+	        type: 'isat.links.AlignedLink',
 	        attrs: {
 	            '.marker-source': { fill: '#29ABE2', stroke: '#29ABE2', d: 'M 0 0 L 0 10 L 5 10 L 5 0 z'},
 	            '.marker-target': { fill: '#29ABE2', stroke: '#29ABE2', d: 'M 10 0 L 0 5 L 10 10 z' },
@@ -804,7 +806,7 @@
 
 	module.exports = joint.shapes.history.GenericLink.extend({
 	    defaults: joint.util.deepSupplement({
-	        type: 'history.links.isat.StarburstLink',
+	        type: 'isat.links.StarburstLink',
 	        attrs: {
 	            '.marker-source': { fill: '#009245', stroke: '#009245', d: 'M 0 0 L 0 10 L 5 10 L 5 0 z'},
 	            '.marker-target': { fill: '#009245', stroke: '#009245', d: 'M 10 0 L 0 5 L 10 10 z' },
@@ -820,7 +822,7 @@
 
 	module.exports = joint.shapes.history.GenericLink.extend({
 	    defaults: joint.util.deepSupplement({
-	        type: 'history.links.isat.SlideLink',
+	        type: 'isat.links.SlideLink',
 	        attrs: {
 	            '.marker-source': { fill: '#C1272D', stroke: '#C1272D', d: 'M 0 0 L 0 10 L 5 10 L 5 0 z'},
 	            '.marker-target': { fill: '#C1272D', stroke: '#C1272D', d: 'M 10 0 L 0 5 L 10 10 z' },
@@ -1373,8 +1375,6 @@
 /***/ },
 /* 44 */
 /***/ function(module, exports) {
-
-	window.iSATMode = false;
 
 	module.exports = Backbone.View.extend({
 	    events: {
