@@ -79,11 +79,11 @@
 
 	joint.shapes.isat = {nodes: {}, links: {}};
 
-	joint.shapes.isat.nodes.Data = __webpack_require__(27);
-	joint.shapes.isat.nodes.Phase = __webpack_require__(28);
-	joint.shapes.isat.nodes.Query = __webpack_require__(29);
-	joint.shapes.isat.nodes.Question = __webpack_require__(30);
-	joint.shapes.isat.nodes.Stratum = __webpack_require__(31);
+	joint.shapes.isat.nodes.Phase = __webpack_require__(27);
+	joint.shapes.isat.nodes.Stratum = __webpack_require__(28);
+	joint.shapes.isat.nodes.Question = __webpack_require__(29);
+	joint.shapes.isat.nodes.Data = __webpack_require__(30);
+	joint.shapes.isat.nodes.Query = __webpack_require__(31);
 
 	joint.shapes.isat.links.NormalLink = __webpack_require__(32);
 	joint.shapes.isat.links.AlignedLink = __webpack_require__(33);
@@ -693,22 +693,6 @@
 /***/ function(module, exports) {
 
 	module.exports = joint.shapes.history.GenericShape.extend({
-	    markup: '<g class="outer"><path style="fill:#cccccc" d="m 122.35294,126.94118 c 0,10.13541 -8.21753,18.35294 -18.35294,18.35294 l -85.647059,0 C 8.217529,145.29412 0,137.07659 0,126.94118 L 0,26 C 0,15.864589 8.217529,7.6470588 18.352941,7.6470588 l 85.647059,0 c 10.13541,0 18.35294,8.2175302 18.35294,18.3529412 l 0,100.94118 z"></path><path style="fill:#cccccc;stroke:#ffffff;stroke-width:3.05882359;stroke-miterlimit:10" d="m 128.47059,120.82353 c 0,10.13541 -8.21753,18.35294 -18.35294,18.35294 l -85.647062,0 c -10.135412,0 -18.352941,-8.21753 -18.352941,-18.35294 l 0,-100.941177 c 0,-10.1354112 8.217529,-18.3529412 18.352941,-18.3529412 l 85.647062,0 c 10.13541,0 18.35294,8.21753 18.35294,18.3529412 l 0,100.941177 z" stroke-miterlimit="10"></path></g><text/><g class="linkHandle"><circle/><polyline/></g>',
-	    defaults: joint.util.deepSupplement({
-	        type: 'isat.nodes.Data',
-	        size: {
-	            width: 130,
-	            height: 145,
-	        },
-	    }, joint.shapes.history.GenericShape.prototype.defaults)
-	});
-
-
-/***/ },
-/* 28 */
-/***/ function(module, exports) {
-
-	module.exports = joint.shapes.history.GenericShape.extend({
 	    markup: '<g class="outer"><rect ry="25.517525" y="-0.46710238" x="-7.5101852e-06" height="125.71101" width="130.00002" style="fill:#ffffff;stroke:none;stroke-width:2.00000024;stroke-miterlimit:10;stroke-dasharray:none"></rect><rect ry="0" y="52.819183" x="-7.5101852e-06" height="72.424728" width="130.00002" style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.171;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:12.684, 12.684;stroke-dashoffset:0"></rect><path style="fill:none;stroke:#cccccc;stroke-width:3.17100038;stroke-miterlimit:10;stroke-dasharray:12.68400151,12.68400151;stroke-linejoin:round;stroke-dashoffset:0" d="m 109.39024,123.65854 -95.121947,0 m 114.146347,-6.34146 0,6.34146 -6.34147,0 M 1.5853659,104.63415 l 0,-84.817076 C 1.5853659,9.3108539 10.89622,1.5853659 21.40244,1.5853659 l 88.78049,0 c 10.50622,0 18.23171,7.725488 18.23171,18.2317081 l 0,91.158536 m -120.4878105,12.68293 -6.3414636,0 0,-6.34146"></path></g><text/><g class="linkHandle"><circle/><polyline/></g>',
 	    defaults: joint.util.deepSupplement({
 	        type: 'isat.nodes.Phase',
@@ -721,13 +705,13 @@
 
 
 /***/ },
-/* 29 */
+/* 28 */
 /***/ function(module, exports) {
 
 	module.exports = joint.shapes.history.GenericShape.extend({
-	    markup: '<g class="outer"><path d="m 130,126.75 c 0,10.76887 -8.73113,19.5 -19.5,19.5 l -91,0 C 8.731125,146.25 0,137.51887 0,126.75 L 0,19.5 C 0,8.731125 8.731125,0 19.5,0 l 91,0 C 121.26887,0 130,8.731125 130,19.5 l 0,107.25 z" style="fill:#cccccc"></path><path d="m 124.3125,131.625 c 0,0 -9.8345,9.75 -15.4375,9.75 -5.603,0 -15.4375,-9.75 -15.4375,-9.75 0,0 9.8345,-9.75 15.4375,-9.75 5.603,0 15.4375,9.75 15.4375,9.75 z" style="fill:#ffffff"></path><circle cx="108.875" cy="131.28375" r="7.1126246" style="fill:#cccccc"></circle><path d="m 108.27551,133.49634 0,-0.34912 q 0,-0.75537 0.24121,-1.2251 0.24121,-0.47608 0.85058,-0.98389 0.6919,-0.58398 0.90772,-0.83789 0.21582,-0.2539 0.30468,-0.50781 0.0889,-0.25391 0.0889,-0.59033 0,-0.62842 -0.40625,-0.96485 -0.40625,-0.33642 -1.16797,-0.33642 -0.50781,0 -0.99658,0.12695 -0.48242,0.12695 -1.08545,0.41895 l -0.3999,-0.90772 q 1.20605,-0.64111 2.5581,-0.64111 1.20606,0 1.89795,0.60303 0.6919,0.59668 0.6919,1.67578 0,0.46972 -0.12695,0.83154 -0.12696,0.36182 -0.38721,0.68555 -0.25391,0.32373 -1.02197,0.96484 -0.62842,0.53955 -0.8379,0.89502 -0.20312,0.34912 -0.20312,0.92676 l 0,0.21582 -0.90771,0 z m -0.29834,1.91064 q 0,-0.86963 0.80615,-0.86963 0.36816,0 0.57763,0.22217 0.21582,0.21582 0.21582,0.64746 0,0.4253 -0.21582,0.66016 -0.21582,0.22851 -0.57763,0.22851 -0.35547,0 -0.58399,-0.20947 -0.22216,-0.20947 -0.22216,-0.6792 z" style="font-size:13px;font-family:Helvetica-Bold;fill:#ffffff"></path></g><text/><g class="linkHandle"><circle/><polyline/></g>',
+	    markup: '<g class="outer"><path style="fill:#cccccc" d="m 130,126.75 c 0,10.76887 -8.73113,19.5 -19.5,19.5 l -91,0 C 8.731125,146.25 0,137.51887 0,126.75 L 0,19.5 C 0,8.731125 8.731125,0 19.5,0 l 91,0 C 121.26887,0 130,8.731125 130,19.5 l 0,107.25 z"></path><line style="fill:none;stroke:#ffffff;stroke-width:3.25;stroke-miterlimit:10" y2="128.375" x2="130" y1="128.375" x1="0" stroke-miterlimit="10"></line></g><text/><g class="linkHandle"><circle/><polyline/></g>',
 	    defaults: joint.util.deepSupplement({
-	        type: 'history.nodes.Query',
+	        type: 'isat.nodes.Stratum',
 	        size: {
 	            width: 130,
 	            height: 146,
@@ -737,7 +721,7 @@
 
 
 /***/ },
-/* 30 */
+/* 29 */
 /***/ function(module, exports) {
 
 	module.exports = joint.shapes.history.GenericShape.extend({
@@ -753,13 +737,29 @@
 
 
 /***/ },
+/* 30 */
+/***/ function(module, exports) {
+
+	module.exports = joint.shapes.history.GenericShape.extend({
+	    markup: '<g class="outer"><path style="fill:#cccccc" d="m 122.35294,126.94118 c 0,10.13541 -8.21753,18.35294 -18.35294,18.35294 l -85.647059,0 C 8.217529,145.29412 0,137.07659 0,126.94118 L 0,26 C 0,15.864589 8.217529,7.6470588 18.352941,7.6470588 l 85.647059,0 c 10.13541,0 18.35294,8.2175302 18.35294,18.3529412 l 0,100.94118 z"></path><path style="fill:#cccccc;stroke:#ffffff;stroke-width:3.05882359;stroke-miterlimit:10" d="m 128.47059,120.82353 c 0,10.13541 -8.21753,18.35294 -18.35294,18.35294 l -85.647062,0 c -10.135412,0 -18.352941,-8.21753 -18.352941,-18.35294 l 0,-100.941177 c 0,-10.1354112 8.217529,-18.3529412 18.352941,-18.3529412 l 85.647062,0 c 10.13541,0 18.35294,8.21753 18.35294,18.3529412 l 0,100.941177 z" stroke-miterlimit="10"></path></g><text/><g class="linkHandle"><circle/><polyline/></g>',
+	    defaults: joint.util.deepSupplement({
+	        type: 'isat.nodes.Data',
+	        size: {
+	            width: 130,
+	            height: 145,
+	        },
+	    }, joint.shapes.history.GenericShape.prototype.defaults)
+	});
+
+
+/***/ },
 /* 31 */
 /***/ function(module, exports) {
 
 	module.exports = joint.shapes.history.GenericShape.extend({
-	    markup: '<g class="outer"><path style="fill:#cccccc" d="m 130,126.75 c 0,10.76887 -8.73113,19.5 -19.5,19.5 l -91,0 C 8.731125,146.25 0,137.51887 0,126.75 L 0,19.5 C 0,8.731125 8.731125,0 19.5,0 l 91,0 C 121.26887,0 130,8.731125 130,19.5 l 0,107.25 z"></path><line style="fill:none;stroke:#ffffff;stroke-width:3.25;stroke-miterlimit:10" y2="128.375" x2="130" y1="128.375" x1="0" stroke-miterlimit="10"></line></g><text/><g class="linkHandle"><circle/><polyline/></g>',
+	    markup: '<g class="outer"><path d="m 130,126.75 c 0,10.76887 -8.73113,19.5 -19.5,19.5 l -91,0 C 8.731125,146.25 0,137.51887 0,126.75 L 0,19.5 C 0,8.731125 8.731125,0 19.5,0 l 91,0 C 121.26887,0 130,8.731125 130,19.5 l 0,107.25 z" style="fill:#cccccc"></path><path d="m 124.3125,131.625 c 0,0 -9.8345,9.75 -15.4375,9.75 -5.603,0 -15.4375,-9.75 -15.4375,-9.75 0,0 9.8345,-9.75 15.4375,-9.75 5.603,0 15.4375,9.75 15.4375,9.75 z" style="fill:#ffffff"></path><circle cx="108.875" cy="131.28375" r="7.1126246" style="fill:#cccccc"></circle><path d="m 108.27551,133.49634 0,-0.34912 q 0,-0.75537 0.24121,-1.2251 0.24121,-0.47608 0.85058,-0.98389 0.6919,-0.58398 0.90772,-0.83789 0.21582,-0.2539 0.30468,-0.50781 0.0889,-0.25391 0.0889,-0.59033 0,-0.62842 -0.40625,-0.96485 -0.40625,-0.33642 -1.16797,-0.33642 -0.50781,0 -0.99658,0.12695 -0.48242,0.12695 -1.08545,0.41895 l -0.3999,-0.90772 q 1.20605,-0.64111 2.5581,-0.64111 1.20606,0 1.89795,0.60303 0.6919,0.59668 0.6919,1.67578 0,0.46972 -0.12695,0.83154 -0.12696,0.36182 -0.38721,0.68555 -0.25391,0.32373 -1.02197,0.96484 -0.62842,0.53955 -0.8379,0.89502 -0.20312,0.34912 -0.20312,0.92676 l 0,0.21582 -0.90771,0 z m -0.29834,1.91064 q 0,-0.86963 0.80615,-0.86963 0.36816,0 0.57763,0.22217 0.21582,0.21582 0.21582,0.64746 0,0.4253 -0.21582,0.66016 -0.21582,0.22851 -0.57763,0.22851 -0.35547,0 -0.58399,-0.20947 -0.22216,-0.20947 -0.22216,-0.6792 z" style="font-size:13px;font-family:Helvetica-Bold;fill:#ffffff"></path></g><text/><g class="linkHandle"><circle/><polyline/></g>',
 	    defaults: joint.util.deepSupplement({
-	        type: 'isat.nodes.Stratum',
+	        type: 'history.nodes.Query',
 	        size: {
 	            width: 130,
 	            height: 146,

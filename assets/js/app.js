@@ -33,11 +33,11 @@ joint.shapes.history.links.BidirectionalLink = require('./shapes/links/Bidirecti
 
 joint.shapes.isat = {nodes: {}, links: {}};
 
-joint.shapes.isat.nodes.Data = require('./shapes/nodes/isat/Data');
 joint.shapes.isat.nodes.Phase = require('./shapes/nodes/isat/Phase');
-joint.shapes.isat.nodes.Query = require('./shapes/nodes/isat/Query');
-joint.shapes.isat.nodes.Question = require('./shapes/nodes/isat/Question');
 joint.shapes.isat.nodes.Stratum = require('./shapes/nodes/isat/Stratum');
+joint.shapes.isat.nodes.Question = require('./shapes/nodes/isat/Question');
+joint.shapes.isat.nodes.Data = require('./shapes/nodes/isat/Data');
+joint.shapes.isat.nodes.Query = require('./shapes/nodes/isat/Query');
 
 joint.shapes.isat.links.NormalLink = require('./shapes/links/isat/NormalLink');
 joint.shapes.isat.links.AlignedLink = require('./shapes/links/isat/AlignedLink');
