@@ -1248,7 +1248,8 @@
 	        name: model.attr('text/text'),
 	        type: model.attributes.type,
 	        perspective: model.prop('perspective'),
-	        description: model.prop('description')
+	        description: model.prop('description'),
+	        date: model.prop('date'),
 	    });
 	}
 
@@ -1261,6 +1262,7 @@
 	        model.attr('text/text', values.name);
 	        model.prop('perspective', values.perspective);
 	        model.prop('description', values.description);
+	        model.prop('date', values.date);
 	    }
 	}
 
@@ -1281,6 +1283,7 @@
 	    }, getTextField('type', 'Type')),
 	    perspective: getTextField('perspective', 'Perspective'),
 	    description: getTextField('description', 'Description'),
+	    date: getTextField('date', 'Date'),
 	    remove: {
 	        name: 'Remove',
 	        callback: function(key, opt) {
