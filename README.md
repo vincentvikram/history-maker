@@ -19,3 +19,6 @@ visually.
 
 The repo is also subject to commit amends, so don't count on the git history
 being sane.
+
+# Licenses
+The history-maker project is under AGPLv3 and the individual libraries are under their specific licenses
