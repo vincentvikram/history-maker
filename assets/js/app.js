@@ -37,6 +37,7 @@ var LoadButton = require('./views/LoadButton');
 var ClearButton = require('./views/ClearButton');
 var Zoom = require('./models/Zoom');
 var ZoomButton = require('./views/ZoomButton');
+var QuestionPanel = require('./views/QuestionPanel');
 require('./misc/contextMenu');
 
 $.Drag.prototype.position = _.noop;
@@ -96,4 +97,9 @@ var zoomInButton = new ZoomButton({
 var zoomOutButton = new ZoomButton({
     el: document.getElementById('zoom-out-btn'),
     model: zoom,
+});
+
+var questionPanel = new QuestionPanel({
+    el: document.getElementById('bottom-bar'),
+    model: menuGraph,
 });

@@ -83,7 +83,8 @@
 	var ClearButton = __webpack_require__(34);
 	var Zoom = __webpack_require__(35);
 	var ZoomButton = __webpack_require__(36);
-	__webpack_require__(37);
+	var QuestionPanel = __webpack_require__(37);
+	__webpack_require__(38);
 
 	$.Drag.prototype.position = _.noop;
 
@@ -142,6 +143,11 @@
 	var zoomOutButton = new ZoomButton({
 	    el: document.getElementById('zoom-out-btn'),
 	    model: zoom,
+	});
+
+	var questionPanel = new QuestionPanel({
+	    el: document.getElementById('bottom-bar'),
+	    model: menuGraph,
 	});
 
 
@@ -988,6 +994,8 @@
 	    },
 	    getJSONBlob: function() {
 	        var data = this.model.toJSON();
+	        data.q = window.q;
+	        data.a = window.a;
 	        return new Blob(
 	            [JSON.stringify(data)],
 	            {type: 'application/json;charset=utf-8'}
@@ -1041,8 +1049,14 @@
 	                            fileInput.remove();
 
 	                            try {
-	                                self.model.fromJSON(JSON.parse(json));
+	                                var data = JSON.parse(json);
+	                                var q = data.q || '';
+	                                var a = data.a || '';
+
+	                                self.model.fromJSON(data);
+	                                window.updateQAndA(q, a);
 	                            } catch (e) {
+	                                console.log(e);
 	                                bootbox.alert('Unable to load diagram - invalid file');
 	                            }
 	                        });
@@ -1232,6 +1246,34 @@
 
 /***/ },
 /* 37 */
+/***/ function(module, exports) {
+
+	module.exports = Backbone.View.extend({
+	    template: _.template($('#template-question-panel').html()),
+	    initialize: function() {
+	        this.render();
+	        window.updateQAndA = function (q, a) {
+	            $('.question', this.$el).val(q);
+	            $('.answer', this.$el).val(a);
+	            window.q = q;
+	            window.a = a;
+	        }.bind(this);
+	    },
+	    events: {
+	        'change textarea': 'changeInput'
+	    },
+	    changeInput: function(event) {
+	        window.q = $('.question', this.$el).val();
+	        window.a = $('.answer', this.$el).val();
+	    },
+	    render: function() {
+	        this.$el.html(this.template());
+	    }
+	});
+
+
+/***/ },
+/* 38 */
 /***/ function(module, exports) {
 
 	function textFieldKeyUpCallback(e) {

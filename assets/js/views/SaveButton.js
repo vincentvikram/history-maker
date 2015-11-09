@@ -4,6 +4,8 @@ module.exports = Backbone.View.extend({
     },
     getJSONBlob: function() {
         var data = this.model.toJSON();
+        data.q = window.q;
+        data.a = window.a;
         return new Blob(
             [JSON.stringify(data)],
             {type: 'application/json;charset=utf-8'}

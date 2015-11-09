@@ -33,8 +33,14 @@ module.exports = Backbone.View.extend({
                             fileInput.remove();
 
                             try {
-                                self.model.fromJSON(JSON.parse(json));
+                                var data = JSON.parse(json);
+                                var q = data.q || '';
+                                var a = data.a || '';
+
+                                self.model.fromJSON(data);
+                                window.updateQAndA(q, a);
                             } catch (e) {
+                                console.log(e);
                                 bootbox.alert('Unable to load diagram - invalid file');
                             }
                         });
