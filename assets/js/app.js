@@ -103,3 +103,22 @@ var questionPanel = new QuestionPanel({
     el: document.getElementById('bottom-bar'),
     model: menuGraph,
 });
+
+var diagramId = prompt('Enter the diagram ID');
+
+window.jQuery.getJSON('/api/diagrams/' + diagramId + '/latest', function (json) {
+    console.log(json.data);
+    canvasGraph.fromJSON(json.data);
+});
+
+setInterval(function () {
+    var json = canvasGraph.toJSON();
+
+    $.ajax('/api/diagrams/' + diagramId + '/versions', {
+        data: JSON.stringify({ data: json }),
+        contentType: 'application/json',
+        type: 'POST',
+    }).fail(function () {
+        alert('Failed to save diagram version');
+    });
+}, 5000);
