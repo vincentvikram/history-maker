@@ -90,16 +90,20 @@
 
 	var canvasGraph = new joint.dia.Graph();
 
+	var width = 2000,
+	height = 1000;
+
 	var canvasPaper = new joint.dia.Paper({
 	    el: document.getElementById('canvas'),
-	    width: 2000,
-	    height: 1000,
+	    width: width,
+	    height: height,
 	    gridSize: 1,
 	    model: canvasGraph,
 	    linkPinning: false,
 	    linkConnectionPoint: joint.util.shapePerimeterConnectionPoint,
 	    restrictTranslate: true,
 	});
+
 
 	linkHandles(canvasGraph);
 
@@ -165,7 +169,7 @@
 	        contentType: 'application/json',
 	        type: 'POST',
 	    }).fail(function () {
-	        alert('Failed to save diagram version');
+	        //alert('Failed to save diagram version');
 	    });
 	}, 5000);
 
@@ -792,6 +796,10 @@
 	    return topLeft;
 	}
 
+	function extendPaper(width, height) {
+		
+	}
+
 	function createNewItem(type, paper, callback) {
 	    bootbox.prompt('Text for ' + type, function (result) {
 	        var text = result || '';
@@ -809,20 +817,46 @@
 
 	    $(this.$el)
 	        .on('draginit', 'g.element', function(event, drag) {
+				console.log("Drag init");
 	            $(this).data('proxy', createSVGProxy(this));
 	        })
 	        .on('dragmove', 'g.element', function(event, drag) {
+				console.log("Dragmove");
+				console.log(drag.location.y(), drag.location.x());
 	            $(this).data('proxy').css({
 	                top: drag.location.y(),
 	                left: drag.location.x(),
 	            });
+				var item = $(this).data('model');
+	            var paper = self.options.targetPaper;
+	            var zoom = 1 / self.options.zoom.get('zoom');
+				var position = getNewItemPosition(drag, item.get('size'), paper, zoom);
+				var width = paper.options.width;
+				var height = paper.options.height;
+				console.log(position.x, position.y);
+				console.log("WH", width, height);
+				console.log(height - position.y);
+				if(height - position.y < 200) {
+					self.options.targetPaper.fitToContent({
+						minWidth: width,
+						minHeight: height+50
+					});		
+				}
+				if(width - position.x < 200) {
+					self.options.targetPaper.fitToContent({
+						minWidth: width+50,
+						minHeight: height
+					});
+				}
 	        })
 	        .on('dragend', 'g.element', function(event, drag) {
+				console.log("DragENd");
+				console.log(drag.location.y(), drag.location.x());
 	            var item = $(this).data('model');
 	            var paper = self.options.targetPaper;
 	            var zoom = 1 / self.options.zoom.get('zoom');
 	            var position = getNewItemPosition(drag, item.get('size'), paper, zoom);
-
+				console.log(position);
 	            createNewItem(item.prop('itemType'), paper, function (newItem) {
 
 	                newItem.set('position', position);
