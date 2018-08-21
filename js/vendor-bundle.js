@@ -15,8 +15,9 @@
  */
 /*[global-shim-start]*/
 (function (exports, global){
-	var origDefine = global.define;
-
+    var origDefine = global.define;
+    //polyfill for modern browsers.
+    SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformToElement || function(elem) { return elem.getScreenCTM().inverse().multiply(this.getScreenCTM()); }; 
 	var get = function(name){
 		var parts = name.split("."),
 			cur = global,

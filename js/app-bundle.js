@@ -794,10 +794,13 @@
 
 	function createNewItem(type, paper, callback) {
 	    bootbox.prompt('Text for ' + type, function (result) {
-	        var text = result || '';
-	        var newItem = new joint.shapes.history.nodes[type]();
-
-	        newItem.attr('text/text', text);
+			var newItem = new joint.shapes.history.nodes[type]();
+			//use breakText for long texts
+			var wraptext = joint.util.breakText(result || 'Unnamed', {
+				width: newItem.attributes.size.width - 20,
+				height: newItem.attributes.size.height - 5
+			});
+	        newItem.attr('text/text', wraptext);
 	        callback(newItem);
 	    });
 	}
@@ -1320,8 +1323,12 @@
 	    var view = $(this).data('view');
 
 	    if (view) {
-	        var model = view.model;
-	        model.attr('text/text', values.name);
+			var model = view.model;
+			var wraptext = joint.util.breakText(values.name || 'Unnamed', {
+				width: model.attributes.size.width - 20,
+				height: model.attributes.size.height - 5
+			});
+	        model.attr('text/text', wraptext);
 	        model.prop('perspective', values.perspective);
 	        model.prop('description', values.description);
 	        model.prop('date', values.date);
