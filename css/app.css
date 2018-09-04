@@ -20,7 +20,7 @@ main {
   display: flex;
   position: fixed;
   bottom: 100px;
-  top: 80px;
+  top: 120px;
   width: 100%;
 }
 #bottom-bar {
@@ -70,4 +70,13 @@ main {
 }
 .btn:focus {
   outline: none;
+}
+.ques {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+}
+
+.navbar {
+  z-index: 999;
 }
