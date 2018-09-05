@@ -1310,7 +1310,7 @@
 	    initialize: function() {
 	        this.render();
 	        window.updateQAndA = function (q, a) {
-	            $('.question', this.$el).val(q);
+	            setQ(q);
 	            $('.answer', this.$el).val(a);
 	            window.q = q;
 	            window.a = a;
@@ -1320,13 +1320,29 @@
 	        'change textarea': 'changeInput'
 	    },
 	    changeInput: function(event) {
-	        window.q = $('.question', this.$el).val();
-	        window.a = $('.answer', this.$el).val();
+	        window.q = getQ();
+			window.a = $('.answer', this.$el).val();
 	    },
 	    render: function() {
-	        this.$el.html(this.template());
+			this.$el.html(this.template());
+			setQ('');
 	    }
 	});
+
+	function setQ(Q) {
+		var t = document.querySelector('.question');
+		t.value = Q;
+	}
+
+	function getQ() {
+		var t = document.querySelector('.question');
+		return t.value;
+	}
+
+	window.quesChange = function() {
+		var t = document.querySelector('.question');
+		window.q = t.value;
+	}
 
 
 /***/ },

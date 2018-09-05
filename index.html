@@ -36,6 +36,9 @@
             </div>
           </div>
         </div>
+        <div class="ques has-warning">
+            <textarea placeholder="Question" rows="1" class="form-control question" onchange="window.quesChange()" ></textarea>
+        </div>
     </nav>
 
     <main class="container-fluid">
@@ -63,10 +66,7 @@
     <script type="text/template" id="template-question-panel">
         <div class="panel panel-default" data-step="5" data-intro="The learner will enter the historical problem in the question area.  Then, based on the diagram created, the learner will write their answer in plain text in the answer box"  data-position='top'>
             <div class="panel-body">
-                <div class="col-md-3 has-warning">
-                    <textarea placeholder="Question" rows="1" class="form-control question"></textarea>
-                </div>
-                <div class="col-md-9 has-success">
+                <div class="has-success">
                     <textarea placeholder="Answer" rows="1" class="form-control answer"></textarea>
                 </div>
             </div>
