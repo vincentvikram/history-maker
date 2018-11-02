@@ -8,9 +8,9 @@ function getLinkAttributes(callback) {
 
     var options = {
         linkTypes: {
-            'UndirectedLink': 'Ordinary Relationship',
+            'UndirectedLink': 'Relationship',
             'UnidirectionalLink': 'Cause and Effect',
-            'BidirectionalLink': 'Parent-Child',
+            'BidirectionalLink': 'Corroboration',
         },
         lineStyles: { 'solid': 'Solid Line', 'dotted': 'Dotted Line' },
     };

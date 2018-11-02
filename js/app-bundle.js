@@ -55,7 +55,7 @@
 	joint.shapes.history.nodes.ClassIdentity = __webpack_require__(6);
 	joint.shapes.history.nodes.CommunityIdentity = __webpack_require__(7);
 	joint.shapes.history.nodes.Condition = __webpack_require__(8);
-	joint.shapes.history.nodes.Destruction = __webpack_require__(9);
+//	joint.shapes.history.nodes.Destruction = __webpack_require__(9);
 	joint.shapes.history.nodes.Document = __webpack_require__(10);
 	joint.shapes.history.nodes.Event = __webpack_require__(11);
 	joint.shapes.history.nodes.GroupIdentity = __webpack_require__(12);
@@ -65,8 +65,8 @@
 	joint.shapes.history.nodes.PredefinedProcess = __webpack_require__(16);
 	joint.shapes.history.nodes.Profession = __webpack_require__(17);
 	joint.shapes.history.nodes.ReligionCaste = __webpack_require__(18);
-	joint.shapes.history.nodes.Start = __webpack_require__(19);
-	joint.shapes.history.nodes.Stop = __webpack_require__(20);
+//	joint.shapes.history.nodes.Start = __webpack_require__(19);
+//	joint.shapes.history.nodes.Stop = __webpack_require__(20);
 	joint.shapes.history.nodes.Trade = __webpack_require__(21);
 	joint.shapes.history.nodes.UsecaseOrConcept = __webpack_require__(22);
 	joint.shapes.history.nodes.War = __webpack_require__(23);
@@ -903,9 +903,9 @@
 
 	    var options = {
 	        linkTypes: {
-	            'UndirectedLink': 'Ordinary Relationship',
+	            'UndirectedLink': 'Relationship',
 	            'UnidirectionalLink': 'Cause and Effect',
-	            'BidirectionalLink': 'Parent-Child',
+	            'BidirectionalLink': 'Corroboration',
 	        },
 	        lineStyles: { 'solid': 'Solid Line', 'dotted': 'Dotted Line' },
 	    };
